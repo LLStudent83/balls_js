@@ -1,17 +1,21 @@
 import { randomRGB } from "./utils.js";
-
-export class Ball {
+import { Shape } from "./Shape.js";
+export class Ball extends Shape {
+  color;
+  size;
+  ctx;
+  width;
+  height;
+  balls;
   constructor(x, y, velX, velY, color, size, ctx, width, height, balls) {
-    this.x = x;
-    this.y = y;
-    this.velX = velX;
-    this.velY = velY;
+    super(x, y, velX, velY);
     this.color = color;
     this.size = size;
     this.ctx = ctx;
     this.width = width;
     this.height = height;
     this.balls = balls;
+    this.exists = true;
   }
 
   draw() {
@@ -44,7 +48,7 @@ export class Ball {
 
   collisionDetect() {
     for (const ball of this.balls) {
-      if (this !== ball) {
+      if (this !== ball && ball.exists) {
         const dx = this.x - ball.x;
         const dy = this.y - ball.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
