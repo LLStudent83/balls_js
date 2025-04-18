@@ -1,8 +1,9 @@
 import { random, randomRGB } from "./utils.js";
 
 export class Balls {
-  constructor(Ball, ballNumber) {
+  constructor(Ball, ballNumber, EvilCircle) {
     this.Ball = Ball;
+    this.EvilCircle = EvilCircle;
     this.ballNumber = ballNumber;
     this.balls = [];
     this.loop = this.loop.bind(this);
@@ -19,6 +20,14 @@ export class Balls {
     this.height = canvas.height = window.innerHeight;
 
     this.createBalls();
+    this.evilCircle = new this.EvilCircle(
+      0,
+      0,
+      this.ctx,
+      this.width,
+      this.height,
+      this.balls
+    );
   }
 
   createBalls() {
@@ -48,10 +57,16 @@ export class Balls {
     this.ctx.fillRect(0, 0, this.width, this.height);
 
     for (const ball of this.balls) {
-      ball.draw();
-      ball.update();
-      ball.collisionDetect();
+      if (ball.exists) {
+        ball.draw();
+        ball.update();
+        ball.collisionDetect();
+      }
     }
+
+    this.evilCircle.draw();
+    this.evilCircle.checkBounds();
+    this.evilCircle.collisionDetect();
 
     requestAnimationFrame(this.loop);
   }
