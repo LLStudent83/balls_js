@@ -5,6 +5,7 @@ export class Scoreboard {
     this.numberBalls = numberBalls;
     this.startGame = startGame;
     this.stopGame = stopGame;
+
     this.init();
   }
 
@@ -48,6 +49,10 @@ export class Scoreboard {
   }
 
   setScore(score) {
-    score.textContent = score;
+    if (this.score) {
+      this.score.textContent = score;
+    } else {
+      throw new Error("Счётчик score не создан");
+    }
   }
 }

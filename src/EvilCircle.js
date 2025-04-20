@@ -3,7 +3,8 @@ import { Shape } from "./Shape.js";
 export class EvilCircle extends Shape {
   color;
   size;
-  constructor(x, y, ctx, width, height, balls) {
+  collisionHandler;
+  constructor(x, y, ctx, width, height, balls, collisionHandler) {
     super(x, y, 20, 20);
     this.color = "white";
     this.size = 10;
@@ -11,6 +12,8 @@ export class EvilCircle extends Shape {
     this.width = width;
     this.height = height;
     this.balls = balls;
+    this.collisionHandler = collisionHandler;
+
     this.mouseDownHandler = this.mouseDownHandler.bind(this);
     this.init();
   }
@@ -63,14 +66,15 @@ export class EvilCircle extends Shape {
 
   collisionDetect() {
     for (const ball of this.balls) {
-      if (ball.exists) {
-        const dx = this.x - ball.x;
-        const dy = this.y - ball.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+      const dx = this.x - ball.x;
+      const dy = this.y - ball.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
 
-        if (distance < this.size + ball.size) {
-          ball.exists = false;
-        }
+      if (distance < this.size + ball.size) {
+        const index = this.balls.indexOf(ball);
+        this.balls.splice(index, 1);
+
+        this.collisionHandler(this.balls.length);
       }
     }
   }

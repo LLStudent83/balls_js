@@ -15,7 +15,6 @@ export class Ball extends Shape {
     this.width = width;
     this.height = height;
     this.balls = balls;
-    this.exists = true;
   }
 
   draw() {
@@ -48,7 +47,7 @@ export class Ball extends Shape {
 
   collisionDetect() {
     for (const ball of this.balls) {
-      if (this !== ball && ball.exists) {
+      if (this !== ball) {
         const dx = this.x - ball.x;
         const dy = this.y - ball.y;
         const distance = Math.sqrt(dx * dx + dy * dy);

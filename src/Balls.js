@@ -9,6 +9,7 @@ export class Balls {
     this.Ball = Ball;
     this.EvilCircle = EvilCircle;
     this.Scoreboard = Scoreboard;
+    // this.collisionHandler = this.collisionHandler.bind(this);
 
     this.ballNumber = ballNumber;
     this.balls = [];
@@ -33,7 +34,8 @@ export class Balls {
       this.ctx,
       this.width,
       this.height,
-      this.balls
+      this.balls,
+      this.collisionHandler
     );
   }
 
@@ -44,6 +46,10 @@ export class Balls {
       stopGame: () => this.stopGame(),
     });
   }
+
+  collisionHandler = (score) => {
+    this.scoreboard.setScore(score);
+  };
 
   startGame() {
     if (!this.gameStarted) {
@@ -88,11 +94,9 @@ export class Balls {
     this.ctx.fillRect(0, 0, this.width, this.height);
 
     for (const ball of this.balls) {
-      if (ball.exists) {
-        ball.draw();
-        ball.update();
-        ball.collisionDetect();
-      }
+      ball.draw();
+      ball.update();
+      ball.collisionDetect();
     }
 
     this.evilCircle.draw();
