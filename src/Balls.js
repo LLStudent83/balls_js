@@ -1,33 +1,61 @@
 import { random, randomRGB } from "./utils.js";
 
 export class Balls {
-  constructor(Ball, ballNumber, EvilCircle) {
+  Ball;
+  ballNumber;
+  EvilCircle;
+  Scoreboard;
+  constructor(Ball, ballNumber, EvilCircle, Scoreboard) {
     this.Ball = Ball;
     this.EvilCircle = EvilCircle;
+    this.Scoreboard = Scoreboard;
+
     this.ballNumber = ballNumber;
     this.balls = [];
     this.loop = this.loop.bind(this);
-    this.init();
+    this.gameStarted = false;
+    this.initScoreboard();
   }
 
-  init() {
-    const canvas = document.querySelector("canvas");
-    if (!canvas) {
+  initGame() {
+    this.canvas = document.querySelector("canvas");
+    if (!this.canvas) {
       throw new Error("Canvas not found");
     }
-    this.ctx = canvas.getContext("2d");
-    this.width = canvas.width = window.innerWidth;
-    this.height = canvas.height = window.innerHeight;
+    this.ctx = this.canvas.getContext("2d");
+    this.width = this.canvas.width = window.innerWidth;
+    this.height = this.canvas.height = window.innerHeight;
 
     this.createBalls();
     this.evilCircle = new this.EvilCircle(
-      0,
-      0,
+      this.width / 2,
+      20,
       this.ctx,
       this.width,
       this.height,
       this.balls
     );
+  }
+
+  initScoreboard() {
+    this.scoreboard = new this.Scoreboard({
+      numberBalls: this.ballNumber,
+      startGame: () => this.startGame(),
+      stopGame: () => this.stopGame(),
+    });
+  }
+
+  startGame() {
+    if (!this.gameStarted) {
+      this.gameStarted = true;
+      this.initGame();
+      this.loop();
+    }
+  }
+
+  stopGame() {
+    this.gameStarted = false;
+    this.initGame();
   }
 
   createBalls() {
@@ -53,6 +81,9 @@ export class Balls {
   }
 
   loop() {
+    if (!this.gameStarted) {
+      return;
+    }
     this.ctx.fillStyle = "rgb(0 0 0 / 25%)";
     this.ctx.fillRect(0, 0, this.width, this.height);
 

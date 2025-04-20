@@ -21,21 +21,20 @@ export class EvilCircle extends Shape {
 
   mouseDownHandler(e) {
     switch (e.key) {
-      case "a":
+      case "ArrowLeft":
         this.x -= this.velX;
         break;
-      case "d":
+      case "ArrowRight":
         this.x += this.velX;
         break;
-      case "w":
+      case "ArrowUp":
         this.y -= this.velY;
         break;
-      case "s":
+      case "ArrowDown":
         this.y += this.velY;
         break;
     }
   }
-
   draw() {
     this.ctx.beginPath();
     this.ctx.strokeStyle = this.color;
