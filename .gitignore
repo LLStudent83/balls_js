@@ -1,0 +1,53 @@
+# Node.js и npm
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn.lock
+package-lock.json
+
+# Сгенерированные Webpack файлы
+dist/
+build/
+*.bundle.js
+*.bundle.js.map
+
+# Логи
+logs/
+*.log
+*.log.*
+
+# Временные файлы и кэш
+.cache/
+.temp/
+*.tmp
+*.swp
+*.swo
+
+# Файлы редакторов и IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Системные файлы
+.DS_Store
+Thumbs.db
+
+# Окружение и конфиденциальные данные
+.env
+.env.local
+.env.development
+.env.production
+*.pem
+*.key
+*.cert
+
+# Тестовые отчёты и покрытие
+coverage/
+*.lcov
+
+# Другие
+*.bak
+*.gho
+*.orig
+*.rej
