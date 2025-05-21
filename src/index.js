@@ -6,3 +6,7 @@ import { Scoreboard } from "./Scoreboard.js";
 import "./styles.css";
 
 new Balls(Ball, 25, EvilCircle, Scoreboard);
+
+if (module.hot) {
+  module.hot.accept();
+}

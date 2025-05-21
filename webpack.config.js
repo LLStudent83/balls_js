@@ -1,14 +1,9 @@
-import { resolve } from "path";
-import { fileURLToPath } from "url";
-import HtmlWebpackPlugin from "html-webpack-plugin";
-
-// Вычисляем __filename и __dirname для ES-модулей
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = resolve(__filename, "..");
+const { resolve } = require("path");
+const { fileURLToPath } = require("url");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const build = (env) => {
   const { mode } = env;
-  console.log("!!!!!!", mode);
 
   return {
     entry: "./src/index.js",
@@ -33,6 +28,11 @@ const build = (env) => {
       port: 8080,
       open: true,
       hot: true,
+      // watchFiles: ["src/**/*"], // Отслеживание изменений в файлах
+      liveReload: false,
+      client: {
+        overlay: true, // Показ ошибок в браузере
+      },
     },
 
     plugins: [
@@ -43,4 +43,4 @@ const build = (env) => {
   };
 };
 
-export default build;
+module.exports = build;

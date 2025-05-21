@@ -10,6 +10,11 @@ export class Scoreboard {
   }
 
   init() {
+    const existingPanel = document.querySelector("section.panel");
+    if (existingPanel) {
+      existingPanel.remove();
+    }
+
     const panel = document.createElement("section");
     panel.classList.add("panel");
     const score = this.createScore();
