@@ -33,7 +33,7 @@ export class Scoreboard {
     scoreWrapper.classList.add("scoreWrapper");
 
     const title = document.createElement("h2");
-    title.textContent = "Счjj:";
+    title.textContent = "Счёт:";
 
     this.score = document.createElement("div");
     this.score.textContent = this.numberBalls;
