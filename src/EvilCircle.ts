@@ -1,10 +1,37 @@
-import { Shape } from "./Shape.js";
+import { IBall } from "./Ball";
+import { Shape } from "./Shape";
 
-export class EvilCircle extends Shape {
+export interface IEvilCircle extends Shape {
+  ctx: CanvasRenderingContext2D;
+  width: number;
+  height: number;
+  balls: IBall[];
+  collisionHandler: (ballsNumber: number) => void;
+  init(): void;
+  mouseDownHandler(e: KeyboardEvent): void;
+  draw(): void;
+  checkBounds(): void;
+  collisionDetect(): void;
+}
+
+export class EvilCircle extends Shape implements IEvilCircle {
   color;
   size;
   collisionHandler;
-  constructor(x, y, ctx, width, height, balls, collisionHandler) {
+  balls;
+  ctx;
+  width;
+  height;
+
+  constructor(
+    x: number,
+    y: number,
+    ctx: CanvasRenderingContext2D,
+    width: number,
+    height: number,
+    balls: IBall[],
+    collisionHandler: (ballsNumber: number) => void
+  ) {
     super(x, y, 20, 20);
     this.color = "white";
     this.size = 10;
@@ -22,7 +49,7 @@ export class EvilCircle extends Shape {
     window.addEventListener("keydown", this.mouseDownHandler);
   }
 
-  mouseDownHandler(e) {
+  mouseDownHandler(e: KeyboardEvent) {
     switch (e.key) {
       case "ArrowLeft":
         this.x -= this.velX;

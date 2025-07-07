@@ -1,7 +1,27 @@
-export class Scoreboard {
+interface ScoreboardProps {
+  numberBalls: number;
+  startGame: () => void;
+  stopGame: () => void;
+}
+
+export interface IScoreboard {
+  numberBalls: number;
+  scoreElement: HTMLDivElement;
+  startGame(): void;
+  stopGame(): void;
+  init(): void;
+  createScore(): HTMLDivElement;
+  createButton(cliCkHandler: () => void, name: string): HTMLButtonElement;
+  setScore(score: number): void;
+}
+
+export class Scoreboard implements IScoreboard {
   numberBalls;
   startGame;
-  constructor({ numberBalls, startGame, stopGame }) {
+  stopGame;
+  scoreElement: HTMLDivElement;
+
+  constructor({ numberBalls, startGame, stopGame }: ScoreboardProps) {
     this.numberBalls = numberBalls;
     this.startGame = startGame;
     this.stopGame = stopGame;
@@ -35,16 +55,16 @@ export class Scoreboard {
     const title = document.createElement("h2");
     title.textContent = "Счёт:";
 
-    this.score = document.createElement("div");
-    this.score.textContent = this.numberBalls;
-    this.score.id = "score";
+    this.scoreElement = document.createElement("div");
+    this.scoreElement.textContent = String(this.numberBalls);
+    this.scoreElement.id = "score";
 
     scoreWrapper.appendChild(title);
-    scoreWrapper.appendChild(this.score);
+    scoreWrapper.appendChild(this.scoreElement);
     return scoreWrapper;
   }
 
-  createButton(cliCkHandler, name) {
+  createButton(cliCkHandler: () => void, name: string) {
     const button = document.createElement("button");
 
     button.textContent = name;
@@ -53,9 +73,9 @@ export class Scoreboard {
     return button;
   }
 
-  setScore(score) {
-    if (this.score) {
-      this.score.textContent = score;
+  setScore(score: number) {
+    if (this.scoreElement) {
+      this.scoreElement.textContent = String(score);
     } else {
       throw new Error("Счётчик score не создан");
     }

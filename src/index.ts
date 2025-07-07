@@ -1,11 +1,11 @@
-import { Ball } from "./Ball.js";
-import { Balls } from "./Balls.js";
-import { EvilCircle } from "./EvilCircle.js";
-import { Scoreboard } from "./Scoreboard.js";
+import { Ball } from "./Ball";
+import { Balls } from "./Balls";
+import { EvilCircle } from "./EvilCircle";
+import { Scoreboard } from "./Scoreboard";
 
 import "./styles.css";
 
-new Balls(Ball, 25, EvilCircle, Scoreboard);
+new Balls(Ball, EvilCircle, Scoreboard, 25);
 
 if (module.hot) {
   module.hot.accept();

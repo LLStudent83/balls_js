@@ -1,13 +1,38 @@
 import { randomRGB } from "./utils.js";
-import { Shape } from "./Shape.js";
-export class Ball extends Shape {
+import { Shape, IShape } from "./Shape";
+
+export interface IBall extends IShape {
+  color: string;
+  size: number;
+  ctx: CanvasRenderingContext2D;
+  width: number;
+  height: number;
+  balls: IBall[];
+  draw(): void;
+  update(): void;
+  collisionDetect(): void;
+}
+
+export class Ball extends Shape implements IBall {
   color;
   size;
   ctx;
   width;
   height;
   balls;
-  constructor(x, y, velX, velY, color, size, ctx, width, height, balls) {
+
+  constructor(
+    x: number,
+    y: number,
+    velX: number,
+    velY: number,
+    color: string,
+    size: number,
+    ctx: CanvasRenderingContext2D,
+    width: number,
+    height: number,
+    balls: IBall[]
+  ) {
     super(x, y, velX, velY);
     this.color = color;
     this.size = size;
