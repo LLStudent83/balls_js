@@ -14,18 +14,24 @@ const build = (env: Env): Configuration & DevServerConfiguration => {
   return {
     mode: mode,
 
-    entry: "./src/index.ts",
+    entry: "./src/index.tsx",
     output: {
       filename: "main.js",
       path: resolve(__dirname, "dist"),
+      clean: true,
     },
 
     module: {
       rules: [
         {
-          test: /\.tsx?$/,
-          use: "ts-loader",
+          test: /\.(ts|tsx)$/,
           exclude: /node_modules/,
+          use: {
+            loader: "babel-loader",
+            options: {
+              cacheDirectory: true,
+            },
+          },
         },
         {
           test: /\.css$/i,

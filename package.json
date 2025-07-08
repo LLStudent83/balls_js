@@ -13,8 +13,17 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
+    "@babel/preset-react": "^7.27.1",
+    "@babel/preset-typescript": "^7.27.1",
+    "@types/babel__core": "^7.20.5",
+    "@types/react-dom": "^19.1.6",
     "@types/webpack-env": "^1.18.8",
+    "babel-loader": "^10.0.0",
+    "babel-plugin-react-compiler": "^19.1.0-rc.2",
     "css-loader": "^7.1.2",
+    "eslint-plugin-react-hooks": "^6.0.0-rc.1",
     "html-webpack-plugin": "^5.6.3",
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.2",
@@ -23,5 +32,9 @@
     "webpack": "^5.99.6",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.1"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   }
 }
