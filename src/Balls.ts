@@ -1,7 +1,7 @@
 import { IBall } from "./Ball.js";
 import { IEvilCircle } from "./EvilCircle.js";
 import { IScoreboard } from "./Scoreboard.js";
-import { random, randomRGB } from "./utils.js";
+import { random, randomRGB } from "./utils.ts/index.js";
 
 export interface IBalls {
   Ball: new (

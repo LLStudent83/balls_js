@@ -4,7 +4,7 @@ const ReactCompilerConfig = {
   target: "19",
 };
 
-module.exports = function (api: ConfigAPI) {
+function getBabelConfig(api: ConfigAPI) {
   api.cache.forever(); // Кэшировать результат навсегда
   return {
     presets: [
@@ -14,5 +14,6 @@ module.exports = function (api: ConfigAPI) {
     ],
     plugins: [["babel-plugin-react-compiler", ReactCompilerConfig]],
   };
-};
-проверить что ts проверяет типы
+}
+
+export default getBabelConfig;

@@ -1,4 +1,4 @@
-import { randomRGB } from "./utils.js";
+import { randomRGB } from "./utils.ts/index.js";
 import { Shape, IShape } from "./Shape";
 
 export interface IBall extends IShape {
