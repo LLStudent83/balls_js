@@ -42,6 +42,9 @@ const build = (env: Env): Configuration & DevServerConfiguration => {
 
     resolve: {
       extensions: [".tsx", ".ts", ".js"],
+      alias: {
+        src: resolve(__dirname, "src"),
+      },
     },
 
     devServer: {
@@ -50,7 +53,7 @@ const build = (env: Env): Configuration & DevServerConfiguration => {
       hot: true,
       liveReload: false,
       client: {
-        overlay: true, // Показ ошибок в браузере
+        overlay: true,
       },
     },
 

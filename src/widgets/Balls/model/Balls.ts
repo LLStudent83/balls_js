@@ -1,7 +1,7 @@
-import { IBall } from "./Ball.js";
-import { IEvilCircle } from "./EvilCircle.js";
-import { IScoreboard } from "./Scoreboard.js";
-import { random, randomRGB } from "./utils.ts/index.js";
+import { IBall } from "entities/Ball";
+import type { IEvilCircle } from "entities/EvilCircle";
+import { IScoreboard } from "widgets/Scoreboard";
+import { randomNumber, randomRGB } from "shared/functions";
 
 export interface IBalls {
   Ball: new (
@@ -30,6 +30,7 @@ export interface IBalls {
     startGame: () => void;
     stopGame: () => void;
   }) => IScoreboard;
+  parentElement: HTMLDivElement;
   ballNumber: number;
   balls: IBall[];
   gameStarted: boolean;
@@ -55,6 +56,7 @@ export class Balls implements IBalls {
     balls: IBall[]
   ) => IBall;
   ballNumber: number;
+  parentElement: HTMLDivElement;
   EvilCircle: new (
     x: number,
     y: number,
@@ -105,18 +107,19 @@ export class Balls implements IBalls {
       startGame: () => void;
       stopGame: () => void;
     }) => IScoreboard,
-    ballNumber: number
+    ballNumber: number,
+    parentElement: HTMLDivElement
   ) {
     this.Ball = Ball;
     this.EvilCircle = EvilCircle;
     this.Scoreboard = Scoreboard;
-    // this.collisionHandler = this.collisionHandler.bind(this);
 
     this.ballNumber = ballNumber;
     this.balls = [];
     this.loop = this.loop.bind(this);
     this.gameStarted = false;
     this.initScoreboard();
+    this.parentElement = parentElement;
   }
 
   initGame() {
@@ -138,6 +141,8 @@ export class Balls implements IBalls {
       this.balls,
       this.collisionHandler
     );
+
+    this.parentElement.appendChild(this.canvas);
   }
 
   initScoreboard() {
@@ -167,14 +172,12 @@ export class Balls implements IBalls {
 
   createBalls() {
     while (this.balls.length < this.ballNumber) {
-      const size = random(10, 20);
+      const size = randomNumber(10, 20);
       const ball = new this.Ball(
-        // ball position always drawn at least one ball width
-        // away from the edge of the canvas, to avoid drawing errors
-        random(0 + size, this.width - size),
-        random(0 + size, this.height - size),
-        random(-7, 7),
-        random(-7, 7),
+        randomNumber(0 + size, this.width - size),
+        randomNumber(0 + size, this.height - size),
+        randomNumber(-7, 7),
+        randomNumber(-7, 7),
         randomRGB(),
         size,
         this.ctx,

@@ -1,5 +1,5 @@
-import { IBall } from "./Ball";
-import { Shape } from "./Shape";
+import { IBall } from "../typesEvilCircle";
+import { Shape } from "shared/Shape";
 
 export interface IEvilCircle extends Shape {
   ctx: CanvasRenderingContext2D;

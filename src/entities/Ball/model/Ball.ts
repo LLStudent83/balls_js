@@ -1,5 +1,5 @@
-import { randomRGB } from "./utils.ts/index.js";
-import { Shape, IShape } from "./Shape";
+import { randomRGB } from "shared/utils/utils";
+import { Shape, IShape } from "shared/Shape";
 
 export interface IBall extends IShape {
   color: string;
