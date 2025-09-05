@@ -1,3 +1,3 @@
-import { Balls } from "./model/Balls";
+import { BallsWidget } from "./ui/Balls";
 
-export { Balls };
+export { BallsWidget };
