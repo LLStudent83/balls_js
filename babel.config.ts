@@ -9,8 +9,13 @@ function getBabelConfig(api: ConfigAPI) {
   return {
     presets: [
       ["@babel/preset-env", { targets: "defaults" }],
-      "@babel/preset-react", // Для поддержки React
-      "@babel/preset-typescript", // Для поддержки TypeScript
+      [
+        "@babel/preset-react",
+        {
+          runtime: "automatic", // Добавлено: поддержка нового JSX Transform
+        },
+      ],
+      "@babel/preset-typescript",
     ],
     plugins: [["babel-plugin-react-compiler", ReactCompilerConfig]],
   };
