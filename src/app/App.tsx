@@ -3,18 +3,22 @@ import { Balls } from "widgets/Balls";
 import { EvilCircle } from "entities/EvilCircle";
 import { Scoreboard } from "widgets/Scoreboard";
 import React, { useEffect, useRef } from "react";
-import "./styles.css";
+import "./styles/styles.css";
 
 function App() {
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
-    if (containerRef.current) {
-      new Balls(Ball, EvilCircle, Scoreboard, 25, containerRef.current);
+    if (canvasRef.current) {
+      new Balls(Ball, EvilCircle, Scoreboard, 25, canvasRef.current);
     }
   }, []);
 
-  return <section ref={containerRef}></section>;
+  return (
+    <section>
+      <canvas ref={canvasRef}></canvas>
+    </section>
+  );
 }
 
 export default App;

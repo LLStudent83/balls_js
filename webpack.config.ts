@@ -1,6 +1,6 @@
 import { resolve } from "path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
-
+import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
 import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
 import type { Configuration } from "webpack";
 
@@ -42,9 +42,8 @@ const build = (env: Env): Configuration & DevServerConfiguration => {
 
     resolve: {
       extensions: [".tsx", ".ts", ".js"],
-      alias: {
-        src: resolve(__dirname, "src"),
-      },
+      preferRelative: true,
+      plugins: [new TsconfigPathsPlugin()],
     },
 
     devServer: {

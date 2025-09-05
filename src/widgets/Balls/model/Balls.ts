@@ -30,7 +30,7 @@ export interface IBalls {
     startGame: () => void;
     stopGame: () => void;
   }) => IScoreboard;
-  parentElement: HTMLDivElement;
+  canvasElement: HTMLCanvasElement;
   ballNumber: number;
   balls: IBall[];
   gameStarted: boolean;
@@ -56,7 +56,7 @@ export class Balls implements IBalls {
     balls: IBall[]
   ) => IBall;
   ballNumber: number;
-  parentElement: HTMLDivElement;
+  canvasElement: HTMLCanvasElement;
   EvilCircle: new (
     x: number,
     y: number,
@@ -108,7 +108,7 @@ export class Balls implements IBalls {
       stopGame: () => void;
     }) => IScoreboard,
     ballNumber: number,
-    parentElement: HTMLDivElement
+    canvasElement: HTMLCanvasElement
   ) {
     this.Ball = Ball;
     this.EvilCircle = EvilCircle;
@@ -119,7 +119,7 @@ export class Balls implements IBalls {
     this.loop = this.loop.bind(this);
     this.gameStarted = false;
     this.initScoreboard();
-    this.parentElement = parentElement;
+    this.canvasElement = canvasElement;
   }
 
   initGame() {
@@ -141,8 +141,6 @@ export class Balls implements IBalls {
       this.balls,
       this.collisionHandler
     );
-
-    this.parentElement.appendChild(this.canvas);
   }
 
   initScoreboard() {
