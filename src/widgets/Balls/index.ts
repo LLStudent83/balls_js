@@ -1,3 +1,3 @@
-import { BallsWidget } from "./ui/Balls";
+import { BallsWidget } from "./ui/BallsWidget";
 
 export { BallsWidget };

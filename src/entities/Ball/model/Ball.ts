@@ -1,4 +1,4 @@
-import { randomRGB } from "shared/functions/randomRGB";
+import { randomRGB } from "shared/functions";
 import { Shape, IShape } from "shared/Shape";
 
 export interface IBall extends IShape {
