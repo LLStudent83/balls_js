@@ -1,6 +1,5 @@
 import { IBall } from "entities/Ball";
 import type { IEvilCircle } from "entities/EvilCircle";
-import { IScoreboard } from "widgets/Scoreboard";
 import { randomNumber, randomRGB } from "shared/functions";
 
 export interface IBalls {
@@ -25,21 +24,16 @@ export interface IBalls {
     balls: IBall[],
     collisionHandler: (score: number) => void
   ) => IEvilCircle;
-  Scoreboard: new (options: {
-    numberBalls: number;
-    startGame: () => void;
-    stopGame: () => void;
-  }) => IScoreboard;
   canvasElement: HTMLCanvasElement;
   ballNumber: number;
   balls: IBall[];
   gameStarted: boolean;
+  outerGameStarted: boolean;
   canvas?: HTMLCanvasElement;
   ctx?: CanvasRenderingContext2D;
   width?: number;
   height?: number;
   evilCircle?: IEvilCircle;
-  scoreboard?: IScoreboard;
 }
 
 export class Balls implements IBalls {
@@ -66,19 +60,15 @@ export class Balls implements IBalls {
     balls: IBall[],
     collisionHandler: (score: number) => void
   ) => IEvilCircle;
-  Scoreboard: new (options: {
-    numberBalls: number;
-    startGame: () => void;
-    stopGame: () => void;
-  }) => IScoreboard;
-  balls: IBall[];
   gameStarted: boolean;
+  outerGameStarted: boolean;
+  setNumberBalls: (numberBalls: number) => void;
+  balls: IBall[];
   canvas?: HTMLCanvasElement;
   ctx?: CanvasRenderingContext2D;
   width?: number;
   height?: number;
   evilCircle?: IEvilCircle;
-  scoreboard?: IScoreboard;
 
   constructor(
     Ball: new (
@@ -102,24 +92,27 @@ export class Balls implements IBalls {
       balls: IBall[],
       collisionHandler: (score: number) => void
     ) => IEvilCircle,
-    Scoreboard: new (options: {
-      numberBalls: number;
-      startGame: () => void;
-      stopGame: () => void;
-    }) => IScoreboard,
     ballNumber: number,
-    canvasElement: HTMLCanvasElement
+    canvasElement: HTMLCanvasElement,
+    gameStarted: boolean,
+    setNumberBalls: (numberBalls: number) => void
   ) {
     this.Ball = Ball;
     this.EvilCircle = EvilCircle;
-    this.Scoreboard = Scoreboard;
-
+    this.outerGameStarted = gameStarted;
+    this.gameStarted = false;
     this.ballNumber = ballNumber;
     this.balls = [];
     this.loop = this.loop.bind(this);
-    this.gameStarted = false;
-    this.initScoreboard();
+    this.setNumberBalls = setNumberBalls;
     this.canvasElement = canvasElement;
+
+    if (this.outerGameStarted) {
+      this.startGame();
+    }
+    if (!this.outerGameStarted && this.outerGameStarted !== this.gameStarted) {
+      this.stopGame();
+    }
   }
 
   initGame() {
@@ -143,28 +136,18 @@ export class Balls implements IBalls {
     );
   }
 
-  initScoreboard() {
-    this.scoreboard = new this.Scoreboard({
-      numberBalls: this.ballNumber,
-      startGame: () => this.startGame(),
-      stopGame: () => this.stopGame(),
-    });
-  }
-
   collisionHandler = (score: number) => {
-    this.scoreboard.setScore(score);
+    this.setNumberBalls(score);
   };
 
   startGame() {
     if (!this.gameStarted) {
-      this.gameStarted = true;
       this.initGame();
       this.loop();
     }
   }
 
   stopGame() {
-    this.gameStarted = false;
     this.initGame();
   }
 

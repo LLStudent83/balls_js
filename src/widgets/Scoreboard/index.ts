@@ -1,5 +1,3 @@
-import { Scoreboard } from "./model/Scoreboard";
-import type { IScoreboard } from "./model/Scoreboard";
+import { ScoreboardWidget } from "./ui/ScoreboardWidget";
 
-export { Scoreboard };
-export type { IScoreboard };
+export { ScoreboardWidget };

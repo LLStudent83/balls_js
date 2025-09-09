@@ -8,22 +8,3 @@ canvas {
   width: 100vw; /* 100% ширины области просмотра */
   height: 100vh; /* 100% высоты области просмотра */
 }
-
-.panel {
-  position: fixed;
-  top: 0;
-  background: wheat;
-  opacity: 0.5;
-  padding: 10px 20px;
-}
-
-.scoreWrapper {
-  display: flex;
-  align-items: center;
-
-  h2 {
-    padding: 0;
-    margin: 0;
-    margin-right: 10px;
-  }
-}
