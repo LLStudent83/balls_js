@@ -13,7 +13,7 @@ const build = (env: Env): Configuration & DevServerConfiguration => {
 
   return {
     mode: mode,
-
+    devtool: mode === "development" ? "eval-source-map" : "false",
     entry: "./src/index.tsx",
     output: {
       filename: "main.js",
@@ -30,12 +30,39 @@ const build = (env: Env): Configuration & DevServerConfiguration => {
             loader: "babel-loader",
             options: {
               cacheDirectory: true,
+              sourceMaps: true,
             },
           },
         },
+        // Глобальный CSS (обычные .css файлы)
         {
           test: /\.css$/i,
           use: ["style-loader", "css-loader"],
+        },
+        // CSS Modules (файлы .module.css)
+        {
+          test: /\.module\.scss$/i,
+          use: [
+            "style-loader",
+            {
+              loader: "css-loader",
+              options: {
+                modules: {
+                  namedExport: false,
+                  localIdentName:
+                    mode === "development"
+                      ? "[local]--[hash:base64:5]"
+                      : "[hash:base64:8]",
+                },
+              },
+            },
+            {
+              loader: "sass-loader",
+              options: {
+                sourceMap: true,
+              },
+            },
+          ],
         },
       ],
     },

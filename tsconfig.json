@@ -7,7 +7,14 @@
     "jsx": "react-jsx",
     "allowJs": true,
     "moduleResolution": "bundler",
+    "sourceMap": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules",
+        "options": { "namedExports": false }
+      }
+    ]
   }
 }

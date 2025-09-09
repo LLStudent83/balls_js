@@ -7,6 +7,7 @@ const ReactCompilerConfig = {
 function getBabelConfig(api: ConfigAPI) {
   api.cache.forever(); // Кэшировать результат навсегда
   return {
+    sourceMaps: true,
     presets: [
       ["@babel/preset-env", { targets: "defaults" }],
       [
