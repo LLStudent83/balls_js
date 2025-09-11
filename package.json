@@ -17,6 +17,7 @@
     "@babel/preset-env": "^7.28.0",
     "@babel/preset-react": "^7.27.1",
     "@babel/preset-typescript": "^7.27.1",
+    "@biomejs/biome": "2.2.3",
     "@feature-sliced/steiger-plugin": "^0.5.6",
     "@types/babel__core": "^7.20.5",
     "@types/react-dom": "^19.1.6",
