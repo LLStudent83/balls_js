@@ -1,4 +1,4 @@
-import { IBall } from "../typesEvilCircle";
+import type { IBall } from "../typesEvilCircle";
 import { Shape } from "shared/Shape";
 
 export interface IEvilCircle extends Shape {

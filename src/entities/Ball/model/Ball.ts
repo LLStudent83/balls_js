@@ -1,5 +1,5 @@
 import { randomRGB } from "shared/functions";
-import { Shape, IShape } from "shared/Shape";
+import { Shape, type IShape } from "shared/Shape";
 
 export interface IBall extends IShape {
   color: string;
