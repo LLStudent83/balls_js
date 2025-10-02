@@ -1,5 +1,5 @@
+import { resolve } from "node:path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import { resolve } from "path";
 import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
 import type { Configuration } from "webpack";
 import type { Configuration as DevServerConfiguration } from "webpack-dev-server";

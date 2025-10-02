@@ -1,0 +1,8 @@
+services:
+  frontend:
+    build: .  # Сборка из текущей директории (где Dockerfile)
+    ports:
+      - "8080:80"  # Маппинг порта хоста на контейнер
+    restart: unless-stopped  # Автоматический рестарт при сбое
+    environment:
+      - NODE_ENV=production  # Переменная для production-режима
