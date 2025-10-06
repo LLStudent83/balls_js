@@ -1,8 +1,12 @@
 services:
   frontend:
-    build: .  # Сборка из текущей директории (где Dockerfile)
+    build: .
     ports:
-      - "8080:80"  # Маппинг порта хоста на контейнер
-    restart: unless-stopped  # Автоматический рестарт при сбое
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt/live/priguli.ru/fullchain.pem:/etc/nginx/ssl/fullchain.pem:ro
+      - /etc/letsencrypt/live/priguli.ru/privkey.pem:/etc/nginx/ssl/privkey.pem:ro
+    restart: unless-stopped
     environment:
-      - NODE_ENV=production  # Переменная для production-режима
+      - NODE_ENV=production
