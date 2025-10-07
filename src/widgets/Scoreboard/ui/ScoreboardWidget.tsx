@@ -32,19 +32,30 @@ export function ScoreboardWidget(props: PropsI) {
 
 	return (
 		<section className={classes.panel}>
+			<div className={classes.buttons}>
+				<button
+					type="button"
+					onClick={startGameHandle}
+					className={classes.button}
+				>
+					Старт
+				</button>
+				<button
+					type="button"
+					onClick={stopGameHandle}
+					className={classes.button}
+				>
+					Стоп
+				</button>
+			</div>
+
 			<div className={classes.scoreWrapper}>
-				<h2>Счёт:</h2>
+				<div>Счёт:</div>
 				<div id="score">{numberBalls}</div>
 			</div>
 			<div>
 				<Stopwatch ref={stopWatchRef} setTime={setTimeHandle} />
 			</div>
-			<button type="button" onClick={startGameHandle}>
-				Старт
-			</button>
-			<button type="button" onClick={stopGameHandle}>
-				Стоп
-			</button>
 		</section>
 	);
 }

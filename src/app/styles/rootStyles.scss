@@ -6,6 +6,9 @@ html {
 		calc(14px + (16 - 14) * ((100vw - 1366px) / (1920 - 1366))),
 		16px
 	);
+
+	color: white;
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 body {
