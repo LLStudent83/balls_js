@@ -5,8 +5,11 @@ services:
       - "80:80"
       - "443:443"
     volumes:
+      # Сертификаты
       - /etc/letsencrypt/live/priguli.ru/fullchain.pem:/etc/nginx/ssl/fullchain.pem:ro
       - /etc/letsencrypt/live/priguli.ru/privkey.pem:/etc/nginx/ssl/privkey.pem:ro
+      # Webroot для certbot — отдельный путь
+      - /var/www/certbot:/var/www/certbot
     restart: unless-stopped
     environment:
       - NODE_ENV=production
