@@ -27,6 +27,7 @@
 		"css-loader": "^7.1.2",
 		"eslint-plugin-react-hooks": "^6.0.0-rc.1",
 		"html-webpack-plugin": "^5.6.3",
+		"sass": "^1.93.2",
 		"sass-loader": "^16.0.5",
 		"steiger": "^0.5.11",
 		"style-loader": "^4.0.0",

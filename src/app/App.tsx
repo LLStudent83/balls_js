@@ -1,8 +1,8 @@
 import { GamePage } from "pages/gamePage";
-import "./styles/styles.css";
+import "./styles/rootStyles.scss";
 
 function App() {
-  return <GamePage />;
+	return <GamePage />;
 }
 
 export default App;

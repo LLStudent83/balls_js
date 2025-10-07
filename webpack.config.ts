@@ -34,10 +34,10 @@ const build = (env: Env): Configuration & DevServerConfiguration => {
 						},
 					},
 				},
-				// Глобальный CSS (обычные .css файлы)
 				{
-					test: /\.css$/i,
-					use: ["style-loader", "css-loader"],
+					test: /\.scss$/i,
+					exclude: /\.module\.scss$/i,
+					use: ["style-loader", "css-loader", "sass-loader"],
 				},
 				// CSS Modules (файлы .module.css)
 				{
