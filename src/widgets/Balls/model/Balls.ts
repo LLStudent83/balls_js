@@ -109,8 +109,12 @@ export class Balls implements IBalls {
 			throw new Error("Canvas not found");
 		}
 		this.ctx = canvas.getContext("2d");
-		this.width = canvas.width = window.innerWidth;
-		this.height = canvas.height = window.innerHeight;
+		this.width = canvas.width = Math.trunc(
+			canvas.getBoundingClientRect().width,
+		);
+		this.height = canvas.height = Math.trunc(
+			canvas.getBoundingClientRect().height,
+		);
 
 		this.createBalls();
 		this.evilCircle = new this.EvilCircle(

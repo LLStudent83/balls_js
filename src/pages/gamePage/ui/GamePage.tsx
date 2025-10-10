@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { Layout } from "shared/ui/layout";
 import { BallsWidget } from "widgets/Balls";
 import { ScoreboardWidget } from "widgets/Scoreboard";
+import classes from "../styleGamePage.module.scss";
 
 export function GamePage() {
 	const [gameStarted, setGameStarted] = useState(false);
@@ -21,7 +22,7 @@ export function GamePage() {
 
 	return (
 		<Layout>
-			<div>
+			<div className={classes.pageWrapper}>
 				<ScoreboardWidget
 					numberBalls={numberBalls}
 					startGame={handleStartGame}
