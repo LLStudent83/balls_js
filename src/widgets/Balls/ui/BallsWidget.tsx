@@ -1,11 +1,11 @@
 import { Ball } from "entities/Ball";
 import { EvilCircle } from "entities/EvilCircle";
-import { NUMBER_BALLS } from "pages/gamePage/configGamePage";
 import { useRef } from "react";
 import { useControlGame } from "../hooksBallsWidget";
 import { Balls } from "../model/Balls";
 import classes from "../styleBalls.module.scss";
 
+const NUMBER_BALLS = 25;
 interface PropsI {
 	gameStarted: boolean;
 	setNumberBalls: (numberBalls: number) => void;
