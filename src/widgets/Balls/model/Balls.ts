@@ -24,14 +24,12 @@ export interface IBalls {
 		balls: IBall[],
 		collisionHandler: (score: number) => void,
 	) => IEvilCircle;
-	canvasElement: HTMLCanvasElement;
 	ballNumber: number;
 	balls: IBall[];
-	gameStarted: boolean;
-	ctx?: CanvasRenderingContext2D;
-	width?: number;
-	height?: number;
-	evilCircle?: IEvilCircle;
+	ctx: CanvasRenderingContext2D | null;
+	width: number;
+	height: number;
+	evilCircle: IEvilCircle | null;
 	animationActive: boolean;
 }
 
@@ -49,7 +47,6 @@ export class Balls implements IBalls {
 		balls: IBall[],
 	) => IBall;
 	ballNumber: number;
-	canvasElement: HTMLCanvasElement;
 	EvilCircle: new (
 		x: number,
 		y: number,
@@ -59,13 +56,12 @@ export class Balls implements IBalls {
 		balls: IBall[],
 		collisionHandler: (score: number) => void,
 	) => IEvilCircle;
-	gameStarted: boolean;
 	setNumberBalls: (numberBalls: number) => void;
 	balls: IBall[];
-	ctx?: CanvasRenderingContext2D;
-	width?: number;
-	height?: number;
-	evilCircle?: IEvilCircle;
+	ctx: CanvasRenderingContext2D | null;
+	width: number;
+	height: number;
+	evilCircle: IEvilCircle | null;
 	animationActive: boolean;
 
 	constructor(
@@ -93,6 +89,10 @@ export class Balls implements IBalls {
 		ballNumber: number,
 		setNumberBalls: (numberBalls: number) => void,
 	) {
+		this.ctx = null;
+		this.width = 0;
+		this.height = 0;
+		this.evilCircle = null;
 		this.Ball = Ball;
 		this.EvilCircle = EvilCircle;
 		this.ballNumber = ballNumber;
@@ -101,7 +101,13 @@ export class Balls implements IBalls {
 		this.startGame = this.startGame.bind(this);
 		this.stopGame = this.stopGame.bind(this);
 		this.setNumberBalls = setNumberBalls;
-		this.animationActive = null;
+		this.animationActive = false;
+	}
+
+	assertNotNull<T>(ctx: T | null, errorText: string): asserts ctx is T {
+		if (!ctx) {
+			throw new Error(errorText);
+		}
 	}
 
 	initGame(canvas: HTMLCanvasElement) {
@@ -109,6 +115,8 @@ export class Balls implements IBalls {
 			throw new Error("Canvas not found");
 		}
 		this.ctx = canvas.getContext("2d");
+		this.assertNotNull(this.ctx, "Контекст canvas не определён");
+
 		this.width = canvas.width = Math.trunc(
 			canvas.getBoundingClientRect().width,
 		);
@@ -143,7 +151,7 @@ export class Balls implements IBalls {
 	stopGame() {
 		this.animationActive = false;
 		this.balls = [];
-		this.evilCircle = undefined;
+		this.evilCircle = null;
 		this.setNumberBalls(0);
 
 		if (this.ctx && this.width && this.height) {
@@ -152,6 +160,8 @@ export class Balls implements IBalls {
 	}
 
 	createBalls() {
+		this.assertNotNull(this.ctx, "Контекст canvas не определён");
+
 		while (this.balls.length < this.ballNumber) {
 			const size = randomNumber(10, 20);
 			const ball = new this.Ball(
@@ -175,6 +185,9 @@ export class Balls implements IBalls {
 		if (!this.animationActive) {
 			return;
 		}
+		this.assertNotNull(this.ctx, "Контекст canvas не определён");
+		this.assertNotNull(this.evilCircle, "Объект evilCircle не определён");
+
 		this.ctx.fillStyle = "rgb(0 0 0 / 25%)";
 		this.ctx.fillRect(0, 0, this.width, this.height);
 
