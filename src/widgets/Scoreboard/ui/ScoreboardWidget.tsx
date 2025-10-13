@@ -1,5 +1,5 @@
+import Stopwatch from "features/stopwatch";
 import { useRef } from "react";
-import Stopwatch from "shared/stopwatch";
 import { checkStopWatchRef } from "../model/checkStopWatchRef";
 import classes from "../stylesScoreboard.module.scss";
 import type { StopWatch, TimerDataI } from "../typesScoreboard";
