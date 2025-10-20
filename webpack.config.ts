@@ -40,8 +40,11 @@ const build = (env: Env): Configuration & DevServerConfiguration => {
 					exclude: /\.module\.scss$/i,
 					use: ["style-loader", "css-loader", "sass-loader"],
 				},
-				// CSS Modules (файлы .module.css)
-				{
+{
+            test: /\.css$/i,
+            exclude: /\.module\.css$/i, // Исключаем модульные, чтобы не конфликтовать (если они появятся позже)
+            use: ["style-loader", "css-loader"],
+        },				{
 					test: /\.module\.scss$/i,
 					use: [
 						"style-loader",
