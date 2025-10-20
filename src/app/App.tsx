@@ -1,11 +1,14 @@
 import { GamePage } from "pages/gamePage";
 import { StrictMode } from "react";
 import "./styles/rootStyles.scss";
+import ApiProvider from "shared/api";
 
 function App() {
 	return (
 		<StrictMode>
-			<GamePage />
+			<ApiProvider>
+				<GamePage />
+			</ApiProvider>
 		</StrictMode>
 	);
 }

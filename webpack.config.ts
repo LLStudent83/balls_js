@@ -1,9 +1,10 @@
 import { resolve } from "node:path";
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
 import type { Configuration } from "webpack";
 import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
-import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
+
 interface Env {
 	mode: "development" | "production";
 }
@@ -79,14 +80,20 @@ const build = (env: Env): Configuration & DevServerConfiguration => {
 			hot: true,
 			liveReload: false,
 			client: {
-				// Изменение: explicit объект для overlay, чтобы гарантировать показ ошибок TS как webpack errors
 				overlay: {
-					errors: true, // Показывать ошибки компиляции (включая TS)
-					warnings: true, // Показывать предупреждения (опционально, можно false для чистоты)
+					errors: true,
+					warnings: true,
 				},
 			},
+			proxy: [
+				{
+					context: "/api",
+					target: "http://localhost:3000", // Бэк на 3000
+					changeOrigin: true,
+					secure: false,
+				},
+			],
 		},
-
 		plugins: [
 			new HtmlWebpackPlugin({
 				template: "./src/index.html",
