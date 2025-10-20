@@ -1,17 +1,16 @@
-import axios, { type AxiosInstance } from "axios";
+import Axios, { type AxiosRequestConfig } from "axios";
 
-export function customInstance(baseUrl: string): AxiosInstance {
-	const instance: AxiosInstance = axios.create({
-		baseURL: baseUrl,
-		timeout: 10000,
-	});
+const AXIOS_INSTANCE = Axios.create({ baseURL: "" });
 
-	instance.interceptors.request.use(
-		(config) => config,
+export const customInstance = <T>(config: AxiosRequestConfig): Promise<T> => {
+	const source = Axios.CancelToken.source();
+
+	AXIOS_INSTANCE.interceptors.request.use(
+		(requestConfig) => requestConfig,
 		(error) => Promise.reject(error),
 	);
 
-	instance.interceptors.response.use(
+	AXIOS_INSTANCE.interceptors.response.use(
 		(response) => response,
 		(error) => {
 			if (error.response?.status === 401) {
@@ -21,5 +20,8 @@ export function customInstance(baseUrl: string): AxiosInstance {
 		},
 	);
 
-	return instance;
-}
+	const promise = AXIOS_INSTANCE({ ...config, cancelToken: source.token }).then(
+		({ data }) => data,
+	);
+	return promise;
+};
