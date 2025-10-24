@@ -1,5 +1,3 @@
-"use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -18,8 +16,24 @@ import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
 	username: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
+		message: "Имя пользователя должно быть не меньше 2-х символов",
 	}),
+    password: z
+      .string()
+      .min(7, { message: "Пароль должен быть не меньше 7 символов" })
+      .regex(/[a-z]/, {
+        message: "Пароль должен содержать хотя бы одну строчную букву",
+      })
+      .regex(/[A-Z]/, {
+        message: "Пароль должен содержать хотя бы одну заглавную букву",
+      })
+      .regex(/[^A-Za-z0-9]/, {
+        message: "Пароль должен содержать хотя бы один специальный символ",
+      }),
+        repeatPassword: z.string().min(7, {
+		message: "Имя пользователя должно быть не меньше 7-х символов",
+	}),
+
 });
 
 export function AuthForm() {
@@ -27,7 +41,10 @@ export function AuthForm() {
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			username: "",
+            password: "",
+repeatPassword: ''
 		},
+			
 	});
 
 	function onSubmit(values: z.infer<typeof formSchema>) {
@@ -44,9 +61,9 @@ export function AuthForm() {
 					name="username"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Username</FormLabel>
+							<FormLabel>Регистрация пользователя</FormLabel>
 							<FormControl>
-								<Input placeholder="shadcn" {...field} />
+								<Input placeholder="Имя пользователя" {...field} />
 							</FormControl>
 							<FormDescription>
 								This is your public display name.
@@ -55,8 +72,43 @@ export function AuthForm() {
 						</FormItem>
 					)}
 				/>
-				<Button type="submit">Submit</Button>
+				<FormField
+					control={form.control}
+					name="password"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Регистрация пользователя</FormLabel>
+							<FormControl>
+								<Input placeholder="Пароль" {...field} />
+							</FormControl>
+							<FormDescription>
+								Введите пароль.
+							</FormDescription>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+
+                <FormField
+					control={form.control}
+					name="repeatPassword"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Регистрация пользователя</FormLabel>
+							<FormControl>
+								<Input placeholder="Повторите пароль" {...field} />
+							</FormControl>
+							<FormDescription>
+								Повторите пароль.
+							</FormDescription>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<Button type="submit">Зарегистрироваться</Button>
 			</form>
+			<div className="bg-blue-500">Test</div>
 		</Form>
+		
 	);
 }

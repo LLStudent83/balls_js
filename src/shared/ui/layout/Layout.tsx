@@ -1,9 +1,5 @@
-interface PropsI {
-  children: React.ReactElement;
-}
+import { Outlet } from "react-router";
 
-export function Layout(props: PropsI) {
-  const { children } = props;
-
-  return <main>{children}</main>;
+export function Layout() {
+	return <main>{<Outlet />}</main>;
 }
