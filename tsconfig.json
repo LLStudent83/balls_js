@@ -8,12 +8,13 @@
 		"jsx": "react-jsx",
 		"allowJs": true,
 		"moduleResolution": "bundler",
+		"checkJs": false,
 		"sourceMap": true,
 		"allowSyntheticDefaultImports": true,
 		"baseUrl": "src",
 		"paths": {
-      "@/*": ["./shared/ui/shadcn/*"]
-    },
+			"@/*": ["./shared/ui/shadcn/*"]
+		},
 		"plugins": [
 			{
 				"name": "typescript-plugin-css-modules",

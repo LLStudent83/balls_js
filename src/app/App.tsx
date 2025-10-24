@@ -1,13 +1,14 @@
-import { GamePage } from "pages/gamePage";
 import { StrictMode } from "react";
+import { AppRoutes } from "./routing";
 import "./styles/rootStyles.scss";
 import ApiProvider from "shared/api";
+import "../shared/ui/shadcn/globals.css";
 
 function App() {
 	return (
 		<StrictMode>
 			<ApiProvider>
-				<GamePage />
+				<AppRoutes />
 			</ApiProvider>
 		</StrictMode>
 	);

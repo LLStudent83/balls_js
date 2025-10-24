@@ -40,11 +40,23 @@ const build = (env: Env): Configuration & DevServerConfiguration => {
 					exclude: /\.module\.scss$/i,
 					use: ["style-loader", "css-loader", "sass-loader"],
 				},
-{
-            test: /\.css$/i,
-            exclude: /\.module\.css$/i, // Исключаем модульные, чтобы не конфликтовать (если они появятся позже)
-            use: ["style-loader", "css-loader"],
-        },				{
+				{
+					test: /\.css$/i,
+					exclude: /\.module\.css$/i,
+					use: [
+						"style-loader",
+						"css-loader",
+						{
+							loader: "postcss-loader",
+							options: {
+								postcssOptions: {
+									config: resolve(__dirname, "postcss.config.mjs"),
+								},
+							},
+						},
+					],
+				},
+				{
 					test: /\.module\.scss$/i,
 					use: [
 						"style-loader",
@@ -82,6 +94,7 @@ const build = (env: Env): Configuration & DevServerConfiguration => {
 			open: true,
 			hot: true,
 			liveReload: false,
+			historyApiFallback: true,
 			client: {
 				overlay: {
 					errors: true,
