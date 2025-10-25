@@ -1,6 +1,7 @@
 {
 	"name": "bouncing_balls",
 	"version": "1.0.0",
+	"type": "module",
 	"main": "index.js",
 	"private": true,
 	"scripts": {
@@ -27,8 +28,10 @@
 		"vite": "^6.4.1"
 	},
 	"dependencies": {
+		"@tailwindcss/vite": "^4.1.16",
 		"axios": "^1.12.2",
 		"react": "^19.1.0",
-		"react-dom": "^19.1.0"
+		"react-dom": "^19.1.0",
+		"tailwindcss": "^4.1.16"
 	}
 }
