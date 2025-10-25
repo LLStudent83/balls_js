@@ -9,7 +9,3 @@ if (rootElement) {
 } else {
 	throw new Error('Элемент с id "root" не найден');
 }
-
-if (module.hot) {
-	module.hot.accept();
-}
