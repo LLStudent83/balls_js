@@ -12,6 +12,9 @@
 		"sourceMap": true,
 		"allowSyntheticDefaultImports": true,
 		"baseUrl": "src",
+		"paths": {
+			"@shadcn/*": ["./shared/ui/shadcn/*"]
+		},
 		"plugins": [
 			{
 				"name": "typescript-plugin-css-modules",
