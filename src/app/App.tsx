@@ -1,8 +1,7 @@
 import { StrictMode } from "react";
 import { AppRoutes } from "./routing";
-import "./styles/rootStyles.scss";
 import ApiProvider from "shared/api";
-import "../shared/ui/shadcn/globals.css";
+import "./styles/rootStyles.css";
 
 function App() {
 	return (

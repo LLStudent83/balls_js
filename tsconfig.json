@@ -1,5 +1,6 @@
 {
 	"compilerOptions": {
+		"types": ["vite/client"],
 		"strict": true,
 		"outDir": "./dist/",
 		"noImplicitAny": true,
@@ -13,7 +14,7 @@
 		"allowSyntheticDefaultImports": true,
 		"baseUrl": "src",
 		"paths": {
-			"@/*": ["./shared/ui/shadcn/*"]
+			"@shadcn/*": ["./shared/ui/shadcn/*"]
 		},
 		"plugins": [
 			{
