@@ -1,12 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AuthFormTemplate } from "@shadcn/components/ui/AuthFormTemplate";
 import { Button } from "@shadcn/components/ui/button";
 import {
-	Form,
 	FormControl,
-	FormDescription,
 	FormField,
 	FormItem,
-	FormLabel,
 	FormMessage,
 } from "@shadcn/components/ui/form";
 import { Input } from "@shadcn/components/ui/input";
@@ -55,69 +53,63 @@ export function AuthForm() {
 	}
 
 	return (
-		<Form {...form}>
-			<form
-				onSubmit={form.handleSubmit(onSubmit)}
-				className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 p-5 border border-border
-				 rounded-xl w-1/3 space-y-5"
-			>
-				<FormField
-					control={form.control}
-					name="email"
-					render={({ field }) => (
-						<FormItem>
-							<FormControl>
-								<Input
-									placeholder="Опционально Email для восстановления пароля"
-									{...field}
-								/>
-							</FormControl>
+		<AuthFormTemplate {...form} onSubmit={onSubmit}>
+			<FormField
+				control={form.control}
+				name="email"
+				render={({ field }) => (
+					<FormItem>
+						<FormControl>
+							<Input
+								placeholder="Опционально Email для восстановления пароля"
+								{...field}
+							/>
+						</FormControl>
 
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-				<FormField
-					control={form.control}
-					name="username"
-					render={({ field }) => (
-						<FormItem>
-							<FormControl>
-								<Input placeholder="Имя пользователя латиницей" {...field} />
-							</FormControl>
+						<FormMessage />
+					</FormItem>
+				)}
+			/>
+			<FormField
+				control={form.control}
+				name="username"
+				render={({ field }) => (
+					<FormItem>
+						<FormControl>
+							<Input placeholder="Имя пользователя латиницей" {...field} />
+						</FormControl>
 
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-				<FormField
-					control={form.control}
-					name="password"
-					render={({ field }) => (
-						<FormItem>
-							<FormControl>
-								<Input placeholder="Пароль минимум 8 символов" {...field} />
-							</FormControl>
+						<FormMessage />
+					</FormItem>
+				)}
+			/>
+			<FormField
+				control={form.control}
+				name="password"
+				render={({ field }) => (
+					<FormItem>
+						<FormControl>
+							<Input placeholder="Пароль минимум 8 символов" {...field} />
+						</FormControl>
 
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
+						<FormMessage />
+					</FormItem>
+				)}
+			/>
 
-				<FormField
-					control={form.control}
-					name="confirmPassword"
-					render={({ field }) => (
-						<FormItem>
-							<FormControl>
-								<Input placeholder="Повторите пароль" {...field} />
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-				<Button type="submit">Зарегистрироваться</Button>
-			</form>
-		</Form>
+			<FormField
+				control={form.control}
+				name="confirmPassword"
+				render={({ field }) => (
+					<FormItem>
+						<FormControl>
+							<Input placeholder="Повторите пароль" {...field} />
+						</FormControl>
+						<FormMessage />
+					</FormItem>
+				)}
+			/>
+			<Button type="submit">Зарегистрироваться</Button>
+		</AuthFormTemplate>
 	);
 }
