@@ -1,7 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
 import { Button } from "@shadcn/components/ui/button";
 import {
 	Form,
@@ -13,61 +10,82 @@ import {
 	FormMessage,
 } from "@shadcn/components/ui/form";
 import { Input } from "@shadcn/components/ui/input";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-const formSchema = z.object({
-	username: z.string().min(2, {
-		message: "Имя пользователя должно быть не меньше 2-х символов",
-	}),
-    password: z
-      .string()
-      .min(7, { message: "Пароль должен быть не меньше 7 символов" })
-      .regex(/[a-z]/, {
-        message: "Пароль должен содержать хотя бы одну строчную букву",
-      })
-      .regex(/[A-Z]/, {
-        message: "Пароль должен содержать хотя бы одну заглавную букву",
-      })
-      .regex(/[^A-Za-z0-9]/, {
-        message: "Пароль должен содержать хотя бы один специальный символ",
-      }),
-        repeatPassword: z.string().min(7, {
-		message: "Имя пользователя должно быть не меньше 7-х символов",
-	}),
+const formSchema = z
+	.object({
+		email: z.email("Неверный Email"),
+		username: z.string().min(2, {
+			message: "Имя пользователя должно быть не меньше 2-х символов",
+		}),
+		password: z
+			.string()
+			.min(8, { message: "Пароль должен быть не меньше 8 символов" }),
 
-});
-
-export function AuthForm() {
-	const form = useForm<z.infer<typeof formSchema>>({
-		resolver: zodResolver(formSchema),
-		defaultValues: {
-			username: "",
-            password: "",
-repeatPassword: ''
-		},
-			
+		confirmPassword: z.string(),
+	})
+	.superRefine((data, ctx) => {
+		if (data.confirmPassword !== data.password) {
+			ctx.addIssue({
+				code: "custom",
+				message: "Пароли должны совпадать",
+				path: ["confirmPassword"],
+			});
+		}
 	});
 
-	function onSubmit(values: z.infer<typeof formSchema>) {
-		// Do something with the form values.
-		// ✅ This will be type-safe and validated.
+type FormDataT = z.infer<typeof formSchema>;
+
+export function AuthForm() {
+	const form = useForm<FormDataT>({
+		mode: "onBlur",
+		reValidateMode: "onBlur",
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			email: "",
+			username: "",
+			password: "",
+			confirmPassword: "",
+		},
+	});
+
+	function onSubmit(values: FormDataT) {
 		console.log(values);
 	}
 
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+			<form
+				onSubmit={form.handleSubmit(onSubmit)}
+				className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 p-5 border border-border
+				 rounded-xl w-1/3 space-y-5"
+			>
+				<FormField
+					control={form.control}
+					name="email"
+					render={({ field }) => (
+						<FormItem>
+							<FormControl>
+								<Input
+									placeholder="Опционально Email для восстановления пароля"
+									{...field}
+								/>
+							</FormControl>
+
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
 				<FormField
 					control={form.control}
 					name="username"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Регистрация пользователя</FormLabel>
 							<FormControl>
-								<Input placeholder="Имя пользователя" {...field} />
+								<Input placeholder="Имя пользователя латиницей" {...field} />
 							</FormControl>
-							<FormDescription>
-								This is your public display name.
-							</FormDescription>
+
 							<FormMessage />
 						</FormItem>
 					)}
@@ -77,30 +95,23 @@ repeatPassword: ''
 					name="password"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Регистрация пользователя</FormLabel>
 							<FormControl>
-								<Input placeholder="Пароль" {...field} />
+								<Input placeholder="Пароль минимум 8 символов" {...field} />
 							</FormControl>
-							<FormDescription>
-								Введите пароль.
-							</FormDescription>
+
 							<FormMessage />
 						</FormItem>
 					)}
 				/>
 
-                <FormField
+				<FormField
 					control={form.control}
-					name="repeatPassword"
+					name="confirmPassword"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Регистрация пользователя</FormLabel>
 							<FormControl>
 								<Input placeholder="Повторите пароль" {...field} />
 							</FormControl>
-							<FormDescription>
-								Повторите пароль.
-							</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}
@@ -108,6 +119,5 @@ repeatPassword: ''
 				<Button type="submit">Зарегистрироваться</Button>
 			</form>
 		</Form>
-		
 	);
 }
