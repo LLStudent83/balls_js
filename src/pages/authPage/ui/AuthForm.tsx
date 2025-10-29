@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AuthFormItemTemplate } from "@shadcn/components/ui/AuthFormItemTemplate";
 import { AuthFormTemplate } from "@shadcn/components/ui/AuthFormTemplate";
 import { Button } from "@shadcn/components/ui/button";
 import {
@@ -13,7 +14,7 @@ import { z } from "zod";
 
 const formSchema = z
 	.object({
-		email: z.email("Неверный Email"),
+		email: z.union([z.literal(""), z.string().email("Неверный Email")]),
 		username: z.string().min(2, {
 			message: "Имя пользователя должно быть не меньше 2-х символов",
 		}),
@@ -58,42 +59,30 @@ export function AuthForm() {
 				control={form.control}
 				name="email"
 				render={({ field }) => (
-					<FormItem>
-						<FormControl>
-							<Input
-								placeholder="Опционально Email для восстановления пароля"
-								{...field}
-							/>
-						</FormControl>
-
-						<FormMessage />
-					</FormItem>
+					<AuthFormItemTemplate
+						placeholder="Email опционально*"
+						field={field}
+					/>
 				)}
 			/>
 			<FormField
 				control={form.control}
 				name="username"
 				render={({ field }) => (
-					<FormItem>
-						<FormControl>
-							<Input placeholder="Имя пользователя латиницей" {...field} />
-						</FormControl>
-
-						<FormMessage />
-					</FormItem>
+					<AuthFormItemTemplate
+						placeholder="Имя пользователя латиницей"
+						field={field}
+					/>
 				)}
 			/>
 			<FormField
 				control={form.control}
 				name="password"
 				render={({ field }) => (
-					<FormItem>
-						<FormControl>
-							<Input placeholder="Пароль минимум 8 символов" {...field} />
-						</FormControl>
-
-						<FormMessage />
-					</FormItem>
+					<AuthFormItemTemplate
+						placeholder="Пароль минимум 8 символов"
+						field={field}
+					/>
 				)}
 			/>
 
@@ -101,14 +90,13 @@ export function AuthForm() {
 				control={form.control}
 				name="confirmPassword"
 				render={({ field }) => (
-					<FormItem>
-						<FormControl>
-							<Input placeholder="Повторите пароль" {...field} />
-						</FormControl>
-						<FormMessage />
-					</FormItem>
+					<AuthFormItemTemplate placeholder="Повторите пароль" field={field} />
 				)}
 			/>
+			<p className="text-muted-foreground text-[0.9rem]">
+				* - нужен только для восстановления пароля. Без email при утере пароля
+				потребуется заново зарегистрироваться
+			</p>
 			<Button type="submit">Зарегистрироваться</Button>
 		</AuthFormTemplate>
 	);
