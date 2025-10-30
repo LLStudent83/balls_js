@@ -16,4 +16,12 @@ export default defineConfig({
 			"@shadcn": path.resolve(__dirname, "./src/shared/ui/shadcn"),
 		},
 	},
+	server: {
+		proxy: {
+			"/api": {
+				target: "http://localhost:3000",
+				changeOrigin: true,
+			},
+		},
+	},
 });
