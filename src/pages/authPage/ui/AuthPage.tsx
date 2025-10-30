@@ -1,13 +1,16 @@
-import { useCallback, useState } from "react";
+import { type RegisterDto, useAuthControllerRegister } from "shared/api";
 import { AuthForm } from "./AuthForm";
-import classes from "../styleGamePage.module.scss";
 
 export function AuthPage() {
-	const [gameStarted, setGameStarted] = useState(false);
+	const register = useAuthControllerRegister();
+
+	const registerHandler = (userData: RegisterDto) => {
+		register.mutate({ data: userData });
+	};
 
 	return (
-			<div>
-                <AuthForm />
-            </div>
+		<div>
+			<AuthForm registerHandler={registerHandler} />
+		</div>
 	);
 }

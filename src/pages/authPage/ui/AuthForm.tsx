@@ -2,19 +2,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthFormItemTemplate } from "@shadcn/components/ui/AuthFormItemTemplate";
 import { AuthFormTemplate } from "@shadcn/components/ui/AuthFormTemplate";
 import { Button } from "@shadcn/components/ui/button";
-import {
-	FormControl,
-	FormField,
-	FormItem,
-	FormMessage,
-} from "@shadcn/components/ui/form";
-import { Input } from "@shadcn/components/ui/input";
+import { FormField } from "@shadcn/components/ui/form";
 import { useForm } from "react-hook-form";
+import type { RegisterDto } from "shared/api";
 import { z } from "zod";
 
 const formSchema = z
 	.object({
-		email: z.union([z.literal(""), z.string().email("Неверный Email")]),
+		email: z.union([z.literal(""), z.email("Неверный Email")]),
 		username: z.string().min(2, {
 			message: "Имя пользователя должно быть не меньше 2-х символов",
 		}),
@@ -36,7 +31,13 @@ const formSchema = z
 
 type FormDataT = z.infer<typeof formSchema>;
 
-export function AuthForm() {
+interface PropsI {
+	registerHandler: (userData: RegisterDto) => void;
+}
+
+export function AuthForm(props: PropsI) {
+	const { registerHandler } = props;
+
 	const form = useForm<FormDataT>({
 		mode: "onBlur",
 		reValidateMode: "onBlur",
@@ -49,8 +50,17 @@ export function AuthForm() {
 		},
 	});
 
-	function onSubmit(values: FormDataT) {
-		console.log(values);
+	function onSubmit(userRegisterData: FormDataT) {
+		console.log(userRegisterData);
+		const { email, password, username } = userRegisterData;
+
+		const userData = {
+			email: email,
+			nickname: username,
+			password: password,
+		};
+
+		registerHandler(userData);
 	}
 
 	return (
