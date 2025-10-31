@@ -5,31 +5,7 @@ import { Button } from "@shadcn/components/ui/button";
 import { FormField } from "@shadcn/components/ui/form";
 import { useForm } from "react-hook-form";
 import type { RegisterDto } from "shared/api";
-import { z } from "zod";
-
-const formSchema = z
-	.object({
-		email: z.union([z.literal(""), z.email("Неверный Email")]),
-		username: z.string().min(2, {
-			message: "Имя пользователя должно быть не меньше 2-х символов",
-		}),
-		password: z
-			.string()
-			.min(8, { message: "Пароль должен быть не меньше 8 символов" }),
-
-		confirmPassword: z.string(),
-	})
-	.superRefine((data, ctx) => {
-		if (data.confirmPassword !== data.password) {
-			ctx.addIssue({
-				code: "custom",
-				message: "Пароли должны совпадать",
-				path: ["confirmPassword"],
-			});
-		}
-	});
-
-type FormDataT = z.infer<typeof formSchema>;
+import { type FormDataT, formSchema } from "../model/authPageFunctions";
 
 interface PropsI {
 	registerHandler: (userData: RegisterDto) => void;
