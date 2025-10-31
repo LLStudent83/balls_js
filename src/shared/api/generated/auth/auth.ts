@@ -7,12 +7,20 @@
  */
 
 import type {
+	DataTag,
+	DefinedInitialDataOptions,
+	DefinedUseQueryResult,
 	MutationFunction,
 	QueryClient,
+	QueryFunction,
+	QueryKey,
+	UndefinedInitialDataOptions,
 	UseMutationOptions,
 	UseMutationResult,
+	UseQueryOptions,
+	UseQueryResult,
 } from "@tanstack/react-query";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { customInstance } from "../../custom-instance";
 import type { LoginDto, RegisterDto } from "../bouncingBallsAPI.schemas";
 
@@ -180,3 +188,150 @@ export const useAuthControllerLogin = <TError = unknown, TContext = unknown>(
 
 	return useMutation(mutationOptions, queryClient);
 };
+/**
+ * @summary Check user authentication status
+ */
+export const authControllerCheckStatus = (signal?: AbortSignal) => {
+	return customInstance<void>({
+		url: `/api/auth/check-status`,
+		method: "GET",
+		signal,
+	});
+};
+
+export const getAuthControllerCheckStatusQueryKey = () => {
+	return [`/api/auth/check-status`] as const;
+};
+
+export const getAuthControllerCheckStatusQueryOptions = <
+	TData = Awaited<ReturnType<typeof authControllerCheckStatus>>,
+	TError = unknown,
+>(options?: {
+	query?: Partial<
+		UseQueryOptions<
+			Awaited<ReturnType<typeof authControllerCheckStatus>>,
+			TError,
+			TData
+		>
+	>;
+}) => {
+	const { query: queryOptions } = options ?? {};
+
+	const queryKey =
+		queryOptions?.queryKey ?? getAuthControllerCheckStatusQueryKey();
+
+	const queryFn: QueryFunction<
+		Awaited<ReturnType<typeof authControllerCheckStatus>>
+	> = ({ signal }) => authControllerCheckStatus(signal);
+
+	return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+		Awaited<ReturnType<typeof authControllerCheckStatus>>,
+		TError,
+		TData
+	> & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type AuthControllerCheckStatusQueryResult = NonNullable<
+	Awaited<ReturnType<typeof authControllerCheckStatus>>
+>;
+export type AuthControllerCheckStatusQueryError = unknown;
+
+export function useAuthControllerCheckStatus<
+	TData = Awaited<ReturnType<typeof authControllerCheckStatus>>,
+	TError = unknown,
+>(
+	options: {
+		query: Partial<
+			UseQueryOptions<
+				Awaited<ReturnType<typeof authControllerCheckStatus>>,
+				TError,
+				TData
+			>
+		> &
+			Pick<
+				DefinedInitialDataOptions<
+					Awaited<ReturnType<typeof authControllerCheckStatus>>,
+					TError,
+					Awaited<ReturnType<typeof authControllerCheckStatus>>
+				>,
+				"initialData"
+			>;
+	},
+	queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+	queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useAuthControllerCheckStatus<
+	TData = Awaited<ReturnType<typeof authControllerCheckStatus>>,
+	TError = unknown,
+>(
+	options?: {
+		query?: Partial<
+			UseQueryOptions<
+				Awaited<ReturnType<typeof authControllerCheckStatus>>,
+				TError,
+				TData
+			>
+		> &
+			Pick<
+				UndefinedInitialDataOptions<
+					Awaited<ReturnType<typeof authControllerCheckStatus>>,
+					TError,
+					Awaited<ReturnType<typeof authControllerCheckStatus>>
+				>,
+				"initialData"
+			>;
+	},
+	queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+	queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useAuthControllerCheckStatus<
+	TData = Awaited<ReturnType<typeof authControllerCheckStatus>>,
+	TError = unknown,
+>(
+	options?: {
+		query?: Partial<
+			UseQueryOptions<
+				Awaited<ReturnType<typeof authControllerCheckStatus>>,
+				TError,
+				TData
+			>
+		>;
+	},
+	queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+	queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary Check user authentication status
+ */
+
+export function useAuthControllerCheckStatus<
+	TData = Awaited<ReturnType<typeof authControllerCheckStatus>>,
+	TError = unknown,
+>(
+	options?: {
+		query?: Partial<
+			UseQueryOptions<
+				Awaited<ReturnType<typeof authControllerCheckStatus>>,
+				TError,
+				TData
+			>
+		>;
+	},
+	queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+	queryKey: DataTag<QueryKey, TData, TError>;
+} {
+	const queryOptions = getAuthControllerCheckStatusQueryOptions(options);
+
+	const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+		TData,
+		TError
+	> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+	query.queryKey = queryOptions.queryKey;
+
+	return query;
+}
