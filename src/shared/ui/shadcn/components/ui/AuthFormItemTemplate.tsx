@@ -13,12 +13,12 @@ export function AuthFormItemTemplate(props: PropsI) {
 	const { placeholder, field } = props;
 
 	return (
-		<FormItem className="relative">
+		<FormItem>
 			<FormControl>
 				<Input placeholder={placeholder} {...field} />
 			</FormControl>
 
-			<FormMessage className="absolute -bottom-6" />
+			<FormMessage />
 		</FormItem>
 	);
 }
