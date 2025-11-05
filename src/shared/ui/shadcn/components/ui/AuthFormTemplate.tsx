@@ -19,8 +19,7 @@ function AuthFormTemplate<TFieldValues extends FieldValues = FieldValues>({
 		<ShadcnForm {...props}>
 			<form
 				onSubmit={props.handleSubmit(onSubmit)}
-				className="space-y-7 fixed left-1/2 top-1/2
-				 -translate-x-1/2 -translate-y-1/2 p-5 border border-border rounded-xl w-[90%] text-lg lg:w-1/3 sm:w-1/2"
+				className="space-y-7 p-5 border border-border rounded-xl  text-lg "
 			>
 				{children}
 			</form>
