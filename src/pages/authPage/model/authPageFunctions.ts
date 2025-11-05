@@ -6,7 +6,7 @@ const passwordRegex =
 export const formSchema = z
 	.object({
 		email: z.union([z.literal(""), z.email("Неверный Email")]),
-		username: z.string().min(2, {
+		nickName: z.string().min(2, {
 			message: "Имя пользователя должно быть не меньше 2-х символов",
 		}),
 		password: z.string().regex(passwordRegex, {

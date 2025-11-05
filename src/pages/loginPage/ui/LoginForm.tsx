@@ -19,17 +19,17 @@ export function LoginForm(props: PropsI) {
 		reValidateMode: "onBlur",
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			username: "",
+			nickName: "",
 			password: "",
 		},
 	});
 
 	function onSubmit(userRegisterData: FormDataT) {
 		console.log(userRegisterData);
-		const { password, username } = userRegisterData;
+		const { password, nickName } = userRegisterData;
 
 		const userData = {
-			nickname: username,
+			nickName: nickName,
 			password: password,
 		};
 
@@ -40,7 +40,7 @@ export function LoginForm(props: PropsI) {
 		<AuthFormTemplate {...form} onSubmit={onSubmit}>
 			<FormField
 				control={form.control}
-				name="username"
+				name="nickName"
 				render={({ field }) => (
 					<AuthFormItemTemplate placeholder="Имя пользователя" field={field} />
 				)}

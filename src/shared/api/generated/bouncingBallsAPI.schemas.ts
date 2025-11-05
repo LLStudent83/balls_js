@@ -6,13 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 export interface RegisterDto {
-  nickname: string;
+  nickName: string;
   password: string;
   email?: string;
 }
 
 export interface LoginDto {
-  nickname: string;
+  nickName: string;
   password: string;
 }
 
