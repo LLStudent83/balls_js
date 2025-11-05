@@ -1,4 +1,5 @@
 import {
+	useAuthControllerCheckStatus,
 	useAuthControllerLogin,
 	useAuthControllerRegister,
 } from "./generated/auth/auth";
@@ -9,5 +10,9 @@ import type {
 import ApiProvider from "./provider/ApiProvider";
 
 export default ApiProvider;
-export { useAuthControllerLogin, useAuthControllerRegister };
+export {
+	useAuthControllerLogin,
+	useAuthControllerRegister,
+	useAuthControllerCheckStatus,
+};
 export type { LoginDto, RegisterDto };
