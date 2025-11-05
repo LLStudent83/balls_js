@@ -12,12 +12,7 @@ export const customInstance = <T>(config: AxiosRequestConfig): Promise<T> => {
 
 	AXIOS_INSTANCE.interceptors.response.use(
 		(response) => response,
-		(error) => {
-			if (error.response?.status === 401) {
-				console.log("Токен истёк — редирект на login");
-			}
-			return Promise.reject(error);
-		},
+		(error) => Promise.reject(error),
 	);
 
 	return AXIOS_INSTANCE(config).then(({ data }) => data);
