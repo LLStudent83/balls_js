@@ -20,19 +20,28 @@ export function AuthForm(props: PropsI) {
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			email: "",
-			username: "",
+			nickName: "",
 			password: "",
 			confirmPassword: "",
 		},
 	});
 
+	function clearForm() {
+		form.reset({
+			email: "",
+			nickName: "",
+			password: "",
+			confirmPassword: "",
+		});
+	}
+
 	function onSubmit(userRegisterData: FormDataT) {
 		console.log(userRegisterData);
-		const { email, password, username } = userRegisterData;
+		const { email, password, nickName } = userRegisterData;
 
 		const userData = {
 			email: email,
-			nickname: username,
+			nickName: nickName,
 			password: password,
 		};
 
@@ -53,7 +62,7 @@ export function AuthForm(props: PropsI) {
 			/>
 			<FormField
 				control={form.control}
-				name="username"
+				name="nickName"
 				render={({ field }) => (
 					<AuthFormItemTemplate
 						placeholder="Имя пользователя латиницей"
@@ -83,7 +92,12 @@ export function AuthForm(props: PropsI) {
 				* - нужен только для восстановления пароля. Без email при утере пароля
 				потребуется заново зарегистрироваться
 			</p>
-			<Button type="submit">Зарегистрироваться</Button>
+			<div className="flex gap-2">
+				<Button type="submit">Зарегистрироваться</Button>
+				<Button type="button" variant="outline" onClick={clearForm}>
+					Очистить
+				</Button>
+			</div>
 		</AuthFormTemplate>
 	);
 }
