@@ -1,5 +1,5 @@
 import { Button } from "@shadcn/components/ui/button";
-import { type User, useUserStore } from "entities/User";
+import { useUserStore } from "entities/User";
 import { useNavigate } from "react-router";
 import { type RegisterDto, useAuthControllerRegister } from "shared/api";
 import { authRoutes, gameRoutes } from "shared/constants/routes.config";
@@ -9,11 +9,11 @@ export function AuthPage() {
 	const navigate = useNavigate();
 	const setUser = useUserStore.use.setUser();
 
-	const authHandler = (userData: User) => {
-		const { userId, nickName, email } = userData;
-		setUser({ userId, nickName, email });
-		const path = gameRoutes.withSlash.game;
-		navigate(path, { viewTransition: true });
+	const authHandler = (userData) => {
+		const { id, nickName, email } = userData;
+		setUser({ userId: id, nickName, email });
+
+		navigate(gameRoutes.withSlash.game, { viewTransition: true });
 	};
 
 	const errorAuthHandler = (e) => {
@@ -23,8 +23,8 @@ export function AuthPage() {
 
 	const register = useAuthControllerRegister({
 		mutation: {
-			onError: (e) => errorAuthHandler(e),
-			onSuccess: (data) => authHandler(data),
+			onError: errorAuthHandler,
+			onSuccess: authHandler,
 		},
 	});
 
