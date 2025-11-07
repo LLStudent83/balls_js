@@ -9,14 +9,14 @@ export function LoginPage() {
 	const setUser = useUserStore((state) => state.setUser);
 	const navigate = useNavigate();
 
-	const authHandler = (userData) => {
+	const successLoginHandler = (userData) => {
 		const { id, nickName, email } = userData;
 		setUser({ userId: id, nickName, email });
 
 		navigate(gameRoutes.withSlash.game, { viewTransition: true });
 	};
 
-	const onLoginError = (error: any) => {
+	const errorLoginHandler = (error: any) => {
 		console.error("Ошибка входа:", error);
 	};
 
@@ -24,8 +24,8 @@ export function LoginPage() {
 		register.mutate(
 			{ data: userData },
 			{
-				onSuccess: authHandler,
-				onError: onLoginError,
+				onSuccess: successLoginHandler,
+				onError: errorLoginHandler,
 			},
 		);
 	};

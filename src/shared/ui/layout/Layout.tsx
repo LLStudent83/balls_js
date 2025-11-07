@@ -30,6 +30,15 @@ export function Layout() {
 											</NavigationMenuLink>
 										</Link>
 									</NavigationMenuItem>
+									<NavigationMenuItem>
+										<Link to="/rules">
+											<NavigationMenuLink
+												className={navigationMenuTriggerStyle()}
+											>
+												Правила игры
+											</NavigationMenuLink>
+										</Link>
+									</NavigationMenuItem>
 									{/* Добавьте другие пункты */}
 								</NavigationMenuContent>
 							</NavigationMenuItem>

@@ -2,21 +2,30 @@ import { Button } from "@shadcn/components/ui/button";
 import { useUserStore } from "entities/User";
 import { useNavigate } from "react-router";
 import { type RegisterDto, useAuthControllerRegister } from "shared/api";
-import { authRoutes, gameRoutes } from "shared/constants/routes.config";
+import {
+	authRoutes,
+	gameRoutes,
+	rulesRoutes,
+} from "shared/constants/routes.config";
+import { hasUserSeenRules } from "shared/functions/LSUtils/rulesUtils";
 import { AuthForm } from "./AuthForm";
 
 export function AuthPage() {
 	const navigate = useNavigate();
 	const setUser = useUserStore.use.setUser();
 
-	const authHandler = (userData) => {
+	const successAuthHandler = (userData: any) => {
 		const { id, nickName, email } = userData;
 		setUser({ userId: id, nickName, email });
 
-		navigate(gameRoutes.withSlash.game, { viewTransition: true });
+		if (hasUserSeenRules()) {
+			navigate(gameRoutes.withSlash.game, { viewTransition: true });
+		} else {
+			navigate(rulesRoutes.withSlash.rules, { viewTransition: true });
+		}
 	};
 
-	const errorAuthHandler = (e) => {
+	const errorAuthHandler = (e: any) => {
 		// нужно распарсить ошибку и показать соответствующее сообщение
 		console.error("ошибка регистрации", e);
 	};
@@ -24,7 +33,7 @@ export function AuthPage() {
 	const register = useAuthControllerRegister({
 		mutation: {
 			onError: errorAuthHandler,
-			onSuccess: authHandler,
+			onSuccess: successAuthHandler,
 		},
 	});
 

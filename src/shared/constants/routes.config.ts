@@ -25,3 +25,7 @@ export const authRoutes = createRoutes({
 export const gameRoutes = createRoutes({
 	game: "game",
 });
+
+export const rulesRoutes = createRoutes({
+	rules: "rules",
+});
