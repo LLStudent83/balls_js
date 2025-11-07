@@ -1,6 +1,10 @@
 import { useUserStore } from "entities/User";
 import { useNavigate } from "react-router";
-import { type LoginDto, useAuthControllerLogin } from "shared/api";
+import {
+	type LoginDto,
+	type UserResponseDto,
+	useAuthControllerLogin,
+} from "shared/api";
 import { gameRoutes } from "shared/constants/routes.config";
 import { LoginForm } from "./LoginForm";
 
@@ -9,7 +13,7 @@ export function LoginPage() {
 	const setUser = useUserStore((state) => state.setUser);
 	const navigate = useNavigate();
 
-	const successLoginHandler = (userData) => {
+	const successLoginHandler = (userData: UserResponseDto) => {
 		const { id, nickName, email } = userData;
 		setUser({ userId: id, nickName, email });
 

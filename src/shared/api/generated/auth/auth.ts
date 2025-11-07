@@ -22,7 +22,12 @@ import type {
 } from "@tanstack/react-query";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { customInstance } from "../../custom-instance";
-import type { LoginDto, RegisterDto } from "../bouncingBallsAPI.schemas";
+import type {
+	AuthStatusDto,
+	LoginDto,
+	RegisterDto,
+	UserResponseDto,
+} from "../bouncingBallsAPI.schemas";
 
 /**
  * @summary Register user
@@ -31,7 +36,7 @@ export const authControllerRegister = (
 	registerDto: RegisterDto,
 	signal?: AbortSignal,
 ) => {
-	return customInstance<void>({
+	return customInstance<UserResponseDto>({
 		url: `/api/auth/register`,
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
@@ -113,7 +118,7 @@ export const authControllerLogin = (
 	loginDto: LoginDto,
 	signal?: AbortSignal,
 ) => {
-	return customInstance<void>({
+	return customInstance<UserResponseDto>({
 		url: `/api/auth/login`,
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
@@ -192,7 +197,7 @@ export const useAuthControllerLogin = <TError = unknown, TContext = unknown>(
  * @summary Check user authentication status
  */
 export const authControllerCheckStatus = (signal?: AbortSignal) => {
-	return customInstance<void>({
+	return customInstance<AuthStatusDto>({
 		url: `/api/auth/check-status`,
 		method: "GET",
 		signal,

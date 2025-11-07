@@ -4,7 +4,7 @@ import { immer } from "zustand/middleware/immer";
 import { createSelectors } from "./userStorUtils";
 
 export interface User {
-	userId: string;
+	userId: number;
 	nickName: string;
 	email?: string;
 }

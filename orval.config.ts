@@ -10,7 +10,7 @@ const config: Config = {
 			target: "./src/shared/api/generated", // В shared/api/generated
 			client: "react-query", // Хуки TanStack Query
 			mock: false,
-			prettier: true,
+			prettier: false,
 			override: {
 				mutator: {
 					path: "./src/shared/api/custom-instance.ts",

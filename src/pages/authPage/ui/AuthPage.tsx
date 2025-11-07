@@ -1,7 +1,11 @@
 import { Button } from "@shadcn/components/ui/button";
 import { useUserStore } from "entities/User";
 import { useNavigate } from "react-router";
-import { type RegisterDto, useAuthControllerRegister } from "shared/api";
+import {
+	type RegisterDto,
+	type UserResponseDto,
+	useAuthControllerRegister,
+} from "shared/api";
 import {
 	authRoutes,
 	gameRoutes,
@@ -14,7 +18,7 @@ export function AuthPage() {
 	const navigate = useNavigate();
 	const setUser = useUserStore.use.setUser();
 
-	const successAuthHandler = (userData: any) => {
+	const successAuthHandler = (userData: UserResponseDto) => {
 		const { id, nickName, email } = userData;
 		setUser({ userId: id, nickName, email });
 
