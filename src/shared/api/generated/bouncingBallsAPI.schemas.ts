@@ -22,10 +22,8 @@ export interface LoginDto {
 	password: string;
 }
 
-export type AuthStatusDtoUser = { [key: string]: unknown };
-
 export interface AuthStatusDto {
 	status: string;
 	message: string;
-	user?: AuthStatusDtoUser;
+	user?: UserResponseDto;
 }

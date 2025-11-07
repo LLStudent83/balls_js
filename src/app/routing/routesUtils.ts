@@ -1,7 +1,9 @@
 import { useUserStore } from "entities/User";
 import { redirect } from "react-router";
+import type { UserResponseDto } from "shared/api";
 import { authControllerCheckStatus } from "shared/api/generated/auth/auth";
 import { authRoutes, gameRoutes } from "shared/constants/routes.config";
+import { assertUser } from "./types";
 
 export const protectedMiddleware = async () => {
 	const userStore = useUserStore.getState();
@@ -12,11 +14,10 @@ export const protectedMiddleware = async () => {
 	}
 
 	let status = "not_registered";
-	let user = null;
+	let user: UserResponseDto | null = null;
 
 	try {
 		const response = await authControllerCheckStatus();
-		console.log("response", response);
 		status = response.status;
 		user = response.user || null;
 	} catch (error) {
@@ -26,6 +27,7 @@ export const protectedMiddleware = async () => {
 
 	switch (status) {
 		case "authenticated": {
+			assertUser(user);
 			const { id, nickName, email } = user;
 			userStore.setUser({ userId: id, nickName, email });
 
