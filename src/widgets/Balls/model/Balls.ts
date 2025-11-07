@@ -114,14 +114,20 @@ export class Balls implements IBalls {
 		if (!canvas) {
 			throw new Error("Canvas not found");
 		}
+
 		this.ctx = canvas.getContext("2d");
 		this.assertNotNull(this.ctx, "Контекст canvas не определён");
+		const canvasParent = canvas.parentElement;
+
+		if (!canvasParent) {
+			throw new Error("canvasParent not found");
+		}
 
 		this.width = canvas.width = Math.trunc(
-			canvas.getBoundingClientRect().width,
+			canvasParent.getBoundingClientRect().width,
 		);
 		this.height = canvas.height = Math.trunc(
-			canvas.getBoundingClientRect().height,
+			canvasParent.getBoundingClientRect().height,
 		);
 
 		this.createBalls();

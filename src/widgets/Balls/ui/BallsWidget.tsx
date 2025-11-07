@@ -3,7 +3,6 @@ import { EvilCircle } from "entities/EvilCircle";
 import { useRef } from "react";
 import { useControlGame } from "../hooksBallsWidget";
 import { Balls } from "../model/Balls";
-import classes from "../styleBalls.module.scss";
 
 const NUMBER_BALLS = 25;
 interface PropsI {
@@ -30,8 +29,8 @@ export function BallsWidget(props: PropsI) {
 	});
 
 	return (
-		<section>
-			<canvas ref={canvasRef} className={classes.canvas}></canvas>
+		<section className="flex-1">
+			<canvas ref={canvasRef} className="block"></canvas>
 		</section>
 	);
 }

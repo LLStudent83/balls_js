@@ -1,7 +1,6 @@
 import { useCallback, useState } from "react";
-	import { BallsWidget } from "widgets/Balls";
+import { BallsWidget } from "widgets/Balls";
 import { ScoreboardWidget } from "widgets/Scoreboard";
-import classes from "../styleGamePage.module.scss";
 
 export function GamePage() {
 	const [gameStarted, setGameStarted] = useState(false);
@@ -20,16 +19,16 @@ export function GamePage() {
 	}, []);
 
 	return (
-			<div className={classes.pageWrapper}>
-				<ScoreboardWidget
-					numberBalls={numberBalls}
-					startGame={handleStartGame}
-					stopGame={handleStopGame}
-				/>
-				<BallsWidget
-					gameStarted={gameStarted}
-					setNumberBalls={handleSetNumberBalls}
-				/>
-			</div>
+		<>
+			<ScoreboardWidget
+				numberBalls={numberBalls}
+				startGame={handleStartGame}
+				stopGame={handleStopGame}
+			/>
+			<BallsWidget
+				gameStarted={gameStarted}
+				setNumberBalls={handleSetNumberBalls}
+			/>
+		</>
 	);
 }
