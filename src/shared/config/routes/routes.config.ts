@@ -17,15 +17,17 @@ function createRoutes<const TRoutes extends Record<string, string>>(
 	};
 }
 
-export const authRoutes = createRoutes({
+const authRoutes = createRoutes({
 	register: "register",
 	login: "login",
 });
 
-export const gameRoutes = createRoutes({
+const gameRoutes = createRoutes({
 	game: "game",
 });
 
-export const rulesRoutes = createRoutes({
+const rulesRoutes = createRoutes({
 	rules: "rules",
 });
+
+export { authRoutes, gameRoutes, rulesRoutes };

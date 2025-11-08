@@ -5,7 +5,7 @@ import {
 	type UserResponseDto,
 	useAuthControllerLogin,
 } from "shared/api";
-import { gameRoutes } from "shared/constants/routes.config";
+import { routesAsConst } from "shared/config/routes";
 import { LoginForm } from "./LoginForm";
 
 export function LoginPage() {
@@ -17,7 +17,7 @@ export function LoginPage() {
 		const { id, nickName, email } = userData;
 		setUser({ userId: id, nickName, email });
 
-		navigate(gameRoutes.withSlash.game, { viewTransition: true });
+		navigate(routesAsConst.gameRoutes.withSlash.game, { viewTransition: true });
 	};
 
 	const errorLoginHandler = (error: any) => {

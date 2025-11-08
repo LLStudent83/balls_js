@@ -1,4 +1,5 @@
 import {
+	authControllerCheckStatus,
 	useAuthControllerCheckStatus,
 	useAuthControllerLogin,
 	useAuthControllerRegister,
@@ -16,5 +17,6 @@ export {
 	useAuthControllerLogin,
 	useAuthControllerRegister,
 	useAuthControllerCheckStatus,
+	authControllerCheckStatus,
 };
 export type { LoginDto, RegisterDto, UserResponseDto, AuthStatusDto };

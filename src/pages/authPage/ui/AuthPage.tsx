@@ -6,13 +6,11 @@ import {
 	type UserResponseDto,
 	useAuthControllerRegister,
 } from "shared/api";
-import {
-	authRoutes,
-	gameRoutes,
-	rulesRoutes,
-} from "shared/constants/routes.config";
+import { routesAsConst } from "shared/config/routes";
 import { hasUserSeenRules } from "shared/functions/LSUtils/rulesUtils";
 import { AuthForm } from "./AuthForm";
+
+const { authRoutes, gameRoutes, rulesRoutes } = routesAsConst;
 
 export function AuthPage() {
 	const navigate = useNavigate();

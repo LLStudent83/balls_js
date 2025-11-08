@@ -3,13 +3,11 @@ import { GamePage } from "pages/gamePage";
 import { GameRules } from "pages/gameRules";
 import { LoginPage } from "pages/loginPage";
 import { createBrowserRouter } from "react-router";
-import {
-	authRoutes,
-	gameRoutes,
-	rulesRoutes,
-} from "shared/constants/routes.config";
+import { routesAsConst } from "shared/config/routes";
 import { Layout } from "shared/ui/layout";
 import { protectedMiddleware } from "./routesUtils";
+
+const { authRoutes, gameRoutes, rulesRoutes } = routesAsConst;
 
 export const router = createBrowserRouter([
 	{

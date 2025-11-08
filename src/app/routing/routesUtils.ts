@@ -1,9 +1,11 @@
 import { useUserStore } from "entities/User";
 import { redirect } from "react-router";
 import type { UserResponseDto } from "shared/api";
-import { authControllerCheckStatus } from "shared/api/generated/auth/auth";
-import { authRoutes, gameRoutes } from "shared/constants/routes.config";
+import { authControllerCheckStatus } from "shared/api";
+import { routesAsConst } from "shared/config/routes";
 import { assertUser } from "./types";
+
+const { authRoutes, gameRoutes } = routesAsConst;
 
 export const protectedMiddleware = async () => {
 	const userStore = useUserStore.getState();
