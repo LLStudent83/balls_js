@@ -16,4 +16,10 @@ export default defineConfig([
 			"fsd/public-api": "off",
 		},
 	},
+	{
+		files: ["./src/shared/ui/shadcn/**"],
+		rules: {
+			"fsd/no-reserved-folder-names": "off",
+		},
+	},
 ]);
