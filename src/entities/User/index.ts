@@ -1,5 +1,5 @@
-import type { User } from "./stor/stor";
-import { useUserStore } from "./stor/stor";
+import type { User } from "./model/stor";
+import { useUserStore } from "./model/stor";
 
 export { useUserStore };
 export type { User };
