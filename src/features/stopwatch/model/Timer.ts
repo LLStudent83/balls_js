@@ -10,7 +10,7 @@ export class Timer {
 	private isPaused: boolean = false;
 	private setTimeCallback: SetTimeCallbackT;
 	private onTickCallback: OnTickCallbackT;
-	private intervalId: number | null = null;
+	private intervalId: NodeJS.Timeout | null = null;
 
 	/**
 	 * Создаёт экземпляр таймера.
