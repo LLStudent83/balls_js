@@ -30,4 +30,4 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/LLStudent83/balls_js:latest
+            ghcr.io/llstudent83/balls_js:latest
