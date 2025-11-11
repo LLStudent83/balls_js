@@ -1,5 +1,5 @@
 yaml
-name: bouncing_balls tests
+name: bouncing_balls_tests
 on:
   push:
     branches:
