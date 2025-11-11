@@ -1,4 +1,3 @@
-yaml
 name: bouncing balls tests
 on:
   push:
