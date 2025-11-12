@@ -1,10 +1,10 @@
 export interface TimerDataI {
-	seconds: number;
-	milliseconds: number;
-	stopDate: Date;
+  seconds: number;
+  milliseconds: number;
+  stopDate: Date;
 }
 
 export interface StopWatch {
-	start: () => void;
-	stop: () => void;
+  start: () => void;
+  stop: () => void;
 }

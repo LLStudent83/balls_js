@@ -1,5 +1,5 @@
-import type { IBall } from "../typesEvilCircle";
-import { Shape } from "shared/Shape";
+import type { IBall } from '../typesEvilCircle';
+import { Shape } from 'shared/Shape';
 
 export interface IEvilCircle extends Shape {
   ctx: CanvasRenderingContext2D;
@@ -30,10 +30,10 @@ export class EvilCircle extends Shape implements IEvilCircle {
     width: number,
     height: number,
     balls: IBall[],
-    collisionHandler: (ballsNumber: number) => void
+    collisionHandler: (ballsNumber: number) => void,
   ) {
     super(x, y, 20, 20);
-    this.color = "white";
+    this.color = 'white';
     this.size = 10;
     this.ctx = ctx;
     this.width = width;
@@ -46,21 +46,21 @@ export class EvilCircle extends Shape implements IEvilCircle {
   }
 
   init() {
-    window.addEventListener("keydown", this.mouseDownHandler);
+    window.addEventListener('keydown', this.mouseDownHandler);
   }
 
   mouseDownHandler(e: KeyboardEvent) {
     switch (e.key) {
-      case "ArrowLeft":
+      case 'ArrowLeft':
         this.x -= this.velX;
         break;
-      case "ArrowRight":
+      case 'ArrowRight':
         this.x += this.velX;
         break;
-      case "ArrowUp":
+      case 'ArrowUp':
         this.y -= this.velY;
         break;
-      case "ArrowDown":
+      case 'ArrowDown':
         this.y += this.velY;
         break;
     }

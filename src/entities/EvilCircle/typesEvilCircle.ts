@@ -1,4 +1,4 @@
-import type { IShape } from "shared/Shape";
+import type { IShape } from 'shared/Shape';
 
 export interface IBall extends IShape {
   color: string;

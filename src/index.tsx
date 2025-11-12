@@ -1,12 +1,12 @@
-import App from "app/App";
-import { createRoot } from "react-dom/client";
-import "./index.css"
+import App from 'app/App';
+import { createRoot } from 'react-dom/client';
+import './index.css';
 
-const rootElement = document.getElementById("root");
+const rootElement = document.getElementById('root');
 
 if (rootElement) {
-	const root = createRoot(rootElement);
-	root.render(<App />);
+  const root = createRoot(rootElement);
+  root.render(<App />);
 } else {
-	throw new Error('Элемент с id "root" не найден');
+  throw new Error('Элемент с id "root" не найден');
 }

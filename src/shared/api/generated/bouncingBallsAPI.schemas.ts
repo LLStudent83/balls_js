@@ -6,24 +6,24 @@
  * OpenAPI spec version: 1.0
  */
 export interface RegisterDto {
-	nickName: string;
-	password: string;
-	email?: string;
+  nickName: string;
+  password: string;
+  email?: string;
 }
 
 export interface UserResponseDto {
-	id: number;
-	nickName: string;
-	email?: string;
+  id: number;
+  nickName: string;
+  email?: string;
 }
 
 export interface LoginDto {
-	nickName: string;
-	password: string;
+  nickName: string;
+  password: string;
 }
 
 export interface AuthStatusDto {
-	status: string;
-	message: string;
-	user?: UserResponseDto;
+  status: string;
+  message: string;
+  user?: UserResponseDto;
 }

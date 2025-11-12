@@ -10,7 +10,7 @@ export class Shape implements IShape {
     public x: number,
     public y: number,
     public velX: number,
-    public velY: number
+    public velY: number,
   ) {
     this.x = x;
     this.y = y;

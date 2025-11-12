@@ -1,59 +1,57 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { AuthFormItemTemplate } from "@shadcn/components/ui/AuthFormItemTemplate";
-import { AuthFormTemplate } from "@shadcn/components/ui/AuthFormTemplate";
-import { Button } from "@shadcn/components/ui/button";
-import { FormField } from "@shadcn/components/ui/form";
-import { useForm } from "react-hook-form";
-import type { LoginDto } from "shared/api";
-import { type FormDataT, formSchema } from "../model/loginPageFunctions";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { AuthFormItemTemplate } from '@shadcn/components/ui/AuthFormItemTemplate';
+import { AuthFormTemplate } from '@shadcn/components/ui/AuthFormTemplate';
+import { Button } from '@shadcn/components/ui/button';
+import { FormField } from '@shadcn/components/ui/form';
+import { useForm } from 'react-hook-form';
+import type { LoginDto } from 'shared/api';
+import { type FormDataT, formSchema } from '../model/loginPageFunctions';
 
 interface PropsI {
-	loginHandler: (userData: LoginDto) => void;
+  loginHandler: (userData: LoginDto) => void;
 }
 
 export function LoginForm(props: PropsI) {
-	const { loginHandler } = props;
+  const { loginHandler } = props;
 
-	const form = useForm<FormDataT>({
-		mode: "onBlur",
-		reValidateMode: "onBlur",
-		resolver: zodResolver(formSchema),
-		defaultValues: {
-			nickName: "",
-			password: "",
-		},
-	});
+  const form = useForm<FormDataT>({
+    mode: 'onBlur',
+    reValidateMode: 'onBlur',
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      nickName: '',
+      password: '',
+    },
+  });
 
-	function onSubmit(userRegisterData: FormDataT) {
-		console.log(userRegisterData);
-		const { password, nickName } = userRegisterData;
+  function onSubmit(userRegisterData: FormDataT) {
+    console.log(userRegisterData);
+    const { password, nickName } = userRegisterData;
 
-		const userData = {
-			nickName: nickName,
-			password: password,
-		};
+    const userData = {
+      nickName: nickName,
+      password: password,
+    };
 
-		loginHandler(userData);
-	}
+    loginHandler(userData);
+  }
 
-	return (
-		<AuthFormTemplate {...form} onSubmit={onSubmit}>
-			<FormField
-				control={form.control}
-				name="nickName"
-				render={({ field }) => (
-					<AuthFormItemTemplate placeholder="Имя пользователя" field={field} />
-				)}
-			/>
-			<FormField
-				control={form.control}
-				name="password"
-				render={({ field }) => (
-					<AuthFormItemTemplate placeholder="Пароль" field={field} />
-				)}
-			/>
+  return (
+    <AuthFormTemplate {...form} onSubmit={onSubmit}>
+      <FormField
+        control={form.control}
+        name="nickName"
+        render={({ field }) => (
+          <AuthFormItemTemplate placeholder="Имя пользователя" field={field} />
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="password"
+        render={({ field }) => <AuthFormItemTemplate placeholder="Пароль" field={field} />}
+      />
 
-			<Button type="submit">Войти</Button>
-		</AuthFormTemplate>
-	);
+      <Button type="submit">Войти</Button>
+    </AuthFormTemplate>
+  );
 }

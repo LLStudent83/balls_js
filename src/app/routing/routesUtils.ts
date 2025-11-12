@@ -1,45 +1,45 @@
-import { useUserStore } from "entities/User";
-import { redirect } from "react-router";
-import type { UserResponseDto } from "shared/api";
-import { authControllerCheckStatus } from "shared/api";
-import { routesAsConst } from "shared/config/routes";
-import { assertUser } from "./types";
+import { useUserStore } from 'entities/User';
+import { redirect } from 'react-router';
+import type { UserResponseDto } from 'shared/api';
+import { authControllerCheckStatus } from 'shared/api';
+import { routesAsConst } from 'shared/config/routes';
+import { assertUser } from './types';
 
 const { authRoutes, gameRoutes } = routesAsConst;
 
 export const protectedMiddleware = async () => {
-	const userStore = useUserStore.getState();
-	const userData = userStore.user;
+  const userStore = useUserStore.getState();
+  const userData = userStore.user;
 
-	if (userData) {
-		return;
-	}
+  if (userData) {
+    return;
+  }
 
-	let status = "not_registered";
-	let user: UserResponseDto | null = null;
+  let status = 'not_registered';
+  let user: UserResponseDto | null = null;
 
-	try {
-		const response = await authControllerCheckStatus();
-		status = response.status;
-		user = response.user || null;
-	} catch (error) {
-		console.error(error);
-		throw redirect(authRoutes.withSlash.register);
-	}
+  try {
+    const response = await authControllerCheckStatus();
+    status = response.status;
+    user = response.user || null;
+  } catch (error) {
+    console.error(error);
+    throw redirect(authRoutes.withSlash.register);
+  }
 
-	switch (status) {
-		case "authenticated": {
-			assertUser(user);
-			const { id, nickName, email } = user;
-			userStore.setUser({ userId: id, nickName, email });
+  switch (status) {
+    case 'authenticated': {
+      assertUser(user);
+      const { id, nickName, email } = user;
+      userStore.setUser({ userId: id, nickName, email });
 
-			throw redirect(gameRoutes.game);
-		}
-		case "token_expired":
-			throw redirect(authRoutes.withSlash.login);
-		case "not_registered":
-			throw redirect(authRoutes.withSlash.register);
-		default:
-			throw redirect(authRoutes.withSlash.register);
-	}
+      throw redirect(gameRoutes.game);
+    }
+    case 'token_expired':
+      throw redirect(authRoutes.withSlash.login);
+    case 'not_registered':
+      throw redirect(authRoutes.withSlash.register);
+    default:
+      throw redirect(authRoutes.withSlash.register);
+  }
 };

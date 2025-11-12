@@ -1,5 +1,5 @@
-import { randomRGB } from "shared/functions";
-import { Shape, type IShape } from "shared/Shape";
+import { randomRGB } from 'shared/functions';
+import { Shape, type IShape } from 'shared/Shape';
 
 export interface IBall extends IShape {
   color: string;
@@ -31,7 +31,7 @@ export class Ball extends Shape implements IBall {
     ctx: CanvasRenderingContext2D,
     width: number,
     height: number,
-    balls: IBall[]
+    balls: IBall[],
   ) {
     super(x, y, velX, velY);
     this.color = color;

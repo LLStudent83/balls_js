@@ -1,3 +1,3 @@
-import { ScoreboardWidget } from "./ui/ScoreboardWidget";
+import { ScoreboardWidget } from './ui/ScoreboardWidget';
 
 export { ScoreboardWidget };

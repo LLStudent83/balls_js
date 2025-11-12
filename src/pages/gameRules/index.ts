@@ -1,3 +1,3 @@
-import { GameRules } from "./ui/GameRules";
+import { GameRules } from './ui/GameRules';
 
 export { GameRules };
