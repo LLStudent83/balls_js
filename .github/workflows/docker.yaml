@@ -31,7 +31,6 @@ jobs:
           push: true
           tags: |
             ghcr.io/llstudent83/balls_js:latest
-
 deploy:
   runs-on: ubuntu-latest
   needs: build-and-push
