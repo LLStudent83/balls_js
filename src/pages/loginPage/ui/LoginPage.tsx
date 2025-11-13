@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 import { type LoginDto, type UserResponseDto, useAuthControllerLogin } from 'shared/api';
 import { routesAsConst } from 'shared/config/routes';
 import { LoginForm } from './LoginForm';
-// коммент для проверки
+
 export function LoginPage() {
   const register = useAuthControllerLogin();
   const setUser = useUserStore((state) => state.setUser);
