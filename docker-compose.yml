@@ -1,15 +1,13 @@
+version: '3.8'
 services:
-  frontend:
-    build: .
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      # Сертификаты
-      - /etc/letsencrypt/live/priguli.ru/fullchain.pem:/etc/nginx/ssl/fullchain.pem:ro
-      - /etc/letsencrypt/live/priguli.ru/privkey.pem:/etc/nginx/ssl/privkey.pem:ro
-      # Webroot для certbot — отдельный путь
-      - /var/www/certbot:/var/www/certbot
+  frontend-balls:
+    image: ghcr.io/llstudent83/balls_js:latest
+    expose:
+      - '80'
     restart: unless-stopped
-    environment:
-      - NODE_ENV=production
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

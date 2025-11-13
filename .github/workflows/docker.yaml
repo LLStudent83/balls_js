@@ -44,8 +44,9 @@ jobs:
           port: 22 # порт который слушает сервер для подключения по ssh
           script: |
             cd ~/projects/balls_deploy  # Путь к compose на VPS; уточни если другой
-            docker compose pull frontend
-            docker compose down frontend
-            docker compose up -d frontend
-            docker compose logs frontend --tail=10  # Логи для отладки
-            docker compose ps frontend  # Проверка статуса
+            curl -o docker-compose.yaml https://raw.githubusercontent.com/llstudent83/balls_js/main/docker-compose.yaml
+            docker compose pull frontend-balls
+            docker compose down frontend-balls
+            docker compose up -d frontend-balls
+            docker compose logs frontend-balls --tail=10  # Логи для отладки
+            docker compose ps frontend-balls  # Проверка статуса
