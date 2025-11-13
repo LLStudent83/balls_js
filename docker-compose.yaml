@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   frontend-balls:
     image: ghcr.io/llstudent83/balls_js:latest

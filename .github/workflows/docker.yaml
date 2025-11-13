@@ -43,10 +43,11 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           port: 22 # порт который слушает сервер для подключения по ssh
           script: |
-            cd ~/projects/balls_deploy  # Путь к compose на VPS; уточни если другой
+            cd ~/projects/balls_deploy
             curl -o docker-compose.yaml https://raw.githubusercontent.com/llstudent83/balls_js/master/docker-compose.yaml
+            echo "${{ secrets.GHRC_TOKEN }}" | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin  
             docker compose pull frontend-balls
-            docker compose down frontend-balls
+            docker compose down frontend-balls || true 
             docker compose up -d frontend-balls
-            docker compose logs frontend-balls --tail=10  # Логи для отладки
-            docker compose ps frontend-balls  # Проверка статуса
+            docker compose logs frontend-balls --tail=10
+            docker compose ps frontend-balls
