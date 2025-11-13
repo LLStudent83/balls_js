@@ -5,8 +5,8 @@ services:
       - '80'
     restart: unless-stopped
     networks:
-      - app-network
+      - priguli-apps
 
 networks:
-  app-network:
-    driver: bridge
+  priguli-apps:
+    external: true
