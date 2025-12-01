@@ -10,19 +10,19 @@ const { authRoutes, gameRoutes, rulesRoutes } = routesAsConst;
 
 export const router = createBrowserRouter([
   {
-    path: authRoutes.withSlash.register,
-    Component: AuthPage,
-  },
-  {
-    path: authRoutes.withSlash.login,
-    Component: LoginPage,
-  },
-  {
     path: '/',
     Component: Layout,
     children: [
       { path: gameRoutes.game, Component: GamePage },
       { path: rulesRoutes.rules, Component: GameRules },
+      {
+        path: authRoutes.withSlash.register,
+        Component: AuthPage,
+      },
+      {
+        path: authRoutes.withSlash.login,
+        Component: LoginPage,
+      },
     ],
   },
 ]);
