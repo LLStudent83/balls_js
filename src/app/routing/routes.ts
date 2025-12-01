@@ -5,7 +5,6 @@ import { LoginPage } from 'pages/loginPage';
 import { createBrowserRouter } from 'react-router';
 import { routesAsConst } from 'shared/config/routes';
 import { Layout } from 'shared/ui/layout';
-import { protectedMiddleware } from './routesUtils';
 
 const { authRoutes, gameRoutes, rulesRoutes } = routesAsConst;
 
@@ -20,7 +19,6 @@ export const router = createBrowserRouter([
   },
   {
     path: '/',
-    middleware: [protectedMiddleware],
     Component: Layout,
     children: [
       { path: gameRoutes.game, Component: GamePage },
